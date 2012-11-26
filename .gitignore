@@ -12,6 +12,9 @@
 *.la
 *.a
 
+#xml
+*.xml
+
 #SVN
 .svn/
 
