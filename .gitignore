@@ -1,0 +1,19 @@
+#Compiled file
+*.slo
+*.lo
+*.o
+
+#Compiled dynamic libraries
+*.so
+*.dylib
+
+#Static libraries
+*.lai
+*.la
+*.a
+
+#SVN
+.svn/
+
+#debug
+Debug/
