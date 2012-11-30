@@ -112,13 +112,6 @@ public:
 	virtual const std::string& getName() const;
 
 	/**
-	 * Check if the rule passed as parameter is in the fuzzy object.
-	 * @param rule	String that represent the rule
-	 * @return		True if the rule is present or false otherwise.
-	 */
-	bool hasRule(const std::string& rule) const;
-
-	/**
 	 * This function launch the fuzzyfication and defuzzification
 	 * process, by using the setted operator of and and or, and
 	 * return the result by defuzzifying the output.

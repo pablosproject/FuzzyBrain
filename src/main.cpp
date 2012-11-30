@@ -1,5 +1,5 @@
 //============================================================================
-// Name        : igloo.cpp
+// Name        :
 // Author      : Paolo Tagliani
 // Version     :
 // Copyright   : Your copyright notice
@@ -25,7 +25,6 @@ using namespace std;
 
 int main() {
 
-	XMLFPParser parser = XMLFPParser();
-	parser.Parse("/Users/igloo/DOcuments/workspace/FuzzyTrainer/FormaFisica.xml");
-	return 0;
+	XMLFPParser	parser = XMLFPParser();
+	parser.Parse("/Users/igloo/Downloads/FormaFisica.xml", NULL);
 }

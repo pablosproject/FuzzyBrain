@@ -91,9 +91,6 @@ float MamdaniFuzzyObject::getOutput() {
 	return defuzif;
 }
 
-bool MamdaniFuzzyObject::hasRule(const std::string& rule) const {
-}
-
 const MamdaniOutputVariable* MamdaniFuzzyObject::getOutputVar() const {
 	return outputVar;
 }

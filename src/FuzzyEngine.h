@@ -9,22 +9,36 @@
 #define FUZZYENGINE_H_
 
 #include "Utility.h"
-#include "FuzzyObject.h"
+#include "MamdaniFuzzyObject.h"
+#include "MappedContainer.hpp"
 
 class FuzzyEngine {
 
 private:
 
-	FuzzyObject *rootObject;
-	std::vector<FuzzyObject*> nestedObjects;
+	MamdaniFuzzyObject *rootObject;
+	MappedContainer<MamdaniFuzzyObject*> nestedObjects;
 
 	//TODO:mettici l'engine creator
 
 	void resetEngine();
 
+	float result;
+
+	//Logger
+	static log4cplus::Logger logger;
+
 public:
+
 	FuzzyEngine();
-	~FuzzyEngine();
+	~FuzzyEngine();//TODO: l'engine si occupa di disallocare tutti gli object che contiene
+
+	void addRootFuzzyObject( MamdaniFuzzyObject* root);
+	void addFuzzyObject( MamdaniFuzzyObject* object);
+
+	void run();
+
+	bool setinput(const std::string& object, const std::string& variable, float value);
 };
 
 #endif /* FUZZYENGINE_H_ */
