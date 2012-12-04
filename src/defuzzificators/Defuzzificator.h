@@ -13,8 +13,8 @@
 #ifndef DEFUZZIFICATOR_H_
 #define DEFUZZIFICATOR_H_
 
-#include "MamdaniOutputVariable.h"
-#include "Utility.h"
+#include "../linguistic_variables/MamdaniOutputVariable.h"
+#include "../Utility.h"
 
 class Defuzzificator {
 public:

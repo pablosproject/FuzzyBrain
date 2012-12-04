@@ -22,7 +22,7 @@ public:
 	XMLFPCreator(const std::string& XMLPathName);
 	~XMLFPCreator();
 
-	virtual bool createEngine(FuzzyEngine* engine) const;
+	bool createEngine(FuzzyEngine* engine) const;
 };
 
 #endif /* XMLFPCREATOR_H_ */

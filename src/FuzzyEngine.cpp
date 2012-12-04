@@ -13,7 +13,12 @@ FuzzyEngine::FuzzyEngine():rootObject(NULL), result(NAN){}
 
 FuzzyEngine::~FuzzyEngine() {
 	// TODO: assicurati di deallocare quello che  si deve deallocare
+<<<<<<< HEAD
 	// TODO: dealloca anche il root
+=======
+	delete (rootObject);
+	nestedObjects.freeContainer();
+>>>>>>> Reoganization and partial XML parser implementation
 }
 
 void FuzzyEngine::resetEngine() {

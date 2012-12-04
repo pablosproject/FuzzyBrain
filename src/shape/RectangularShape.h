@@ -9,7 +9,7 @@
 #define RECTANGULARSHAPE_H_
 
 #include "PolygonalShape.h"
-#include "Utility.h"
+#include "../Utility.h"
 
 class RectangularShape: public PolygonalShape {
 
@@ -27,13 +27,13 @@ public:
 	RectangularShape(float A, float B);
 	~RectangularShape();
 
-	virtual float value(float point) const;
+	 float value(float point) const;
 
-	virtual float getLowBoundary() const;
-	virtual float getUpBoundary() const;
+	 float getLowBoundary() const;
+	 float getUpBoundary() const;
 
-	virtual float getArea() const;
-	virtual float getCentroid() const;
+	 float getArea() const;
+	 float getCentroid() const;
 
 };
 

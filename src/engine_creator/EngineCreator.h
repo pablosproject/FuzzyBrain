@@ -7,7 +7,7 @@
 
 #ifndef ENGINECREATOR_H_
 #define ENGINECREATOR_H_
-#include "FuzzyEngine.h"
+#include "../FuzzyEngine.h"
 
 class EngineCreator {
 public:

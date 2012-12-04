@@ -13,9 +13,9 @@
 
 class AndOperator {
 public:
-	virtual ~AndOperator() {};
+	 ~AndOperator() {};
 
-	virtual float andOperation (float f1 , float f2) const {return -1;}//TODO: segnala che non hai sottoclassato l'operatoreq};
+	 float andOperation (float f1 , float f2) const {return -1;}//TODO: segnala che non hai sottoclassato l'operatoreq};
 };
 
 #endif /* ANDOPERATOR_H_ */

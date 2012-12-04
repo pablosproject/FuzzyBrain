@@ -15,7 +15,7 @@ public:
 	CentroidDefuzzificator();
 	virtual ~CentroidDefuzzificator();
 
-	virtual float defuzzify(const LinguisticVariable* output);
+	float defuzzify(const LinguisticVariable* output);
 
 };
 

@@ -31,13 +31,13 @@ public:
 	TriangularShape(float A, float B, float C);
 	~TriangularShape();
 
-	virtual float value(float point) const;
+	 float value(float point) const;
 
-	virtual float getLowBoundary() const;
-	virtual float getUpBoundary() const;
+	 float getLowBoundary() const;
+	 float getUpBoundary() const;
 
-	virtual float getArea() const;
-	virtual float getCentroid() const;
+	 float getArea() const;
+	 float getCentroid() const;
 
 
 };

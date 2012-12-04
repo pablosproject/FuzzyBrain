@@ -9,8 +9,8 @@
 #define TRIANGULARFUZZYSET_H_
 
 #include "SimplePolygonalFuzzySet.h"
-#include "Utility.h"
-#include "TriangularShape.h"
+#include "../Utility.h"
+#include "../shape/TriangularShape.h"
 
 #include <math.h>
 
@@ -62,32 +62,32 @@ public:
 
 	~TriangularFuzzySet();
 
-	virtual float CalculateMembership (float point) const;
+	 float CalculateMembership (float point) const;
 
-	virtual float getLowBoundary() const;
-	virtual float getUpBoundary() const;
+	 float getLowBoundary() const;
+	 float getUpBoundary() const;
 
-	virtual void setName(const std::string& _name);
+	 void setName(const std::string& _name);
 
-	virtual bool scale(float value);
+	 bool scale(float value);
 
-	virtual float getScale() const;
+	 float getScale() const;
 
 	/**
 	 * Return the area of the fuzzy set.
 	 * @return	The area, or a negative number if there are some problem.
 	 */
-	virtual float getArea() const;
+	 float getArea() const;
 
 	/**
 	 * Return the X position of the centroid of the fuzzy set.
 	 * @return The position of the centroid or NAN if there're some error.
 	 */
-	virtual float getCentroid() const;
+	 float getCentroid() const;
 
 	bool isScaled() const;
 
-	virtual void resetScale();
+	 void resetScale();
 
 
 };

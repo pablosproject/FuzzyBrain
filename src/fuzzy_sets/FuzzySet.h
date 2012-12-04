@@ -12,7 +12,7 @@
 #define FUZZYSET_H_
 
 #include <string>
-#include "Utility.h"
+#include "../Utility.h"
 
 class FuzzySet {
 

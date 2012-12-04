@@ -10,7 +10,7 @@
 
 #include "FuzzySet.h"
 #include <math.h>
-#include "Utility.h"
+#include "../Utility.h"
 
 class SingletonFuzzySet : public FuzzySet {
 

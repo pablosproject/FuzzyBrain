@@ -12,7 +12,7 @@ class OrOperator {
 public:
 	virtual ~OrOperator(){};
 
-	virtual float orOperation (float f1 , float f2) const{return -1;}//TODO:segnala che non hai sottoclassato la classe};
+	float orOperation (float f1 , float f2) const{return -1;}//TODO:segnala che non hai sottoclassato la classe};
 
 };
 

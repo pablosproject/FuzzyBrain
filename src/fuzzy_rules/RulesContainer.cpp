@@ -10,7 +10,11 @@
 log4cplus::Logger RulesContainer::logger = logging::getLogger("RulesContainer");
 
 RulesContainer::~RulesContainer() {
-	// TODO Auto-generated destructor stub
+	//free all the rule's memory
+	for (unsigned int i=0 ; i<rules.size(); i++){
+		delete(rules[i]);
+		rules[i]=0;
+	}
 }
 
 RulesContainer::RulesContainer(){}

@@ -20,8 +20,8 @@
 
 #include "FuzzyRule.h"
 #include <list>
-#include "Utility.h"
-#include "MamdaniOutputVariable.h"
+#include "../Utility.h"
+#include "../linguistic_variables/MamdaniOutputVariable.h"
 
 class MamdaniRule: public FuzzyRule {
 

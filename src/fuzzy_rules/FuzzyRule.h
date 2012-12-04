@@ -16,8 +16,8 @@
  */
 #ifndef FUZZYRULE_H_
 #define FUZZYRULE_H_
-#include "AndOperator.h"
-#include "OrOperator.h"
+#include "../operator/AndOperator.h"
+#include "../operator/OrOperator.h"
 #include <string>
 
 	/**

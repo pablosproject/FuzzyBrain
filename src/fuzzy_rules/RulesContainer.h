@@ -8,11 +8,11 @@
 #ifndef RULESCONTAINER_H_
 #define RULESCONTAINER_H_
 #include <vector>
-#include "MamdaniRule.h"
-#include "MamdaniOutputVariable.h"
-#include "InputLinguisticVariable.h"
-#include "Utility.h"
-#include "MappedContainer.hpp"
+#include "../fuzzy_rules/MamdaniRule.h"
+#include "../linguistic_variables/MamdaniOutputVariable.h"
+#include "../linguistic_variables/InputLinguisticVariable.h"
+#include "../Utility.h"
+#include "../MappedContainer.hpp"
 
 class RulesContainer {
 

@@ -16,7 +16,7 @@ public:
 	COSDefuzzificator();
 	~COSDefuzzificator();
 
-	virtual float defuzzify(const MamdaniOutputVariable* output) const;
+	float defuzzify(const MamdaniOutputVariable* output) const;
 
 };
 

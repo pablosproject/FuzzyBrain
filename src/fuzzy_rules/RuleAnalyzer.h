@@ -15,10 +15,10 @@
 #define RULEANALYZER_H_
 
 #include "MamdaniRule.h"
-#include "MappedContainer.hpp"
-#include "MamdaniOutputVariable.h"
-#include "InputLinguisticVariable.h"
-#include "Utility.h"
+#include "../MappedContainer.hpp"
+#include "../linguistic_variables/MamdaniOutputVariable.h"
+#include "../linguistic_variables/InputLinguisticVariable.h"
+#include "../Utility.h"
 #include <algorithm>
 #include <string>
 #include <sstream>

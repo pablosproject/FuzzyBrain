@@ -9,8 +9,8 @@
 #define TRAPEZOIDALFUZZYSET_H_
 
 #include "SimplePolygonalFuzzySet.h"
-#include "Utility.h"
-#include "TrapezoidalShape.h"
+#include "../Utility.h"
+#include "../shape/TrapezoidalShape.h"
 
 
 class TrapezoidalFuzzySet: public SimplePolygonalFuzzySet {
@@ -63,28 +63,28 @@ public:
 	 */
 	bool configureSet(const std::string& _name, float Apoint, float BPoint, float Cpoint, float DPoint);
 
-	virtual float CalculateMembership (float point) const;
+	 float CalculateMembership (float point) const;
 
-	virtual float getUpBoundary() const;
-	virtual float getLowBoundary() const;
+	 float getUpBoundary() const;
+	 float getLowBoundary() const;
 
-	virtual void setName(const std::string& _name);
+	 void setName(const std::string& _name);
 
 	float getArea() const;
 
-	virtual bool scale(float value);
+	 bool scale(float value);
 
-	virtual float getScale() const;
+	 float getScale() const;
 
 	bool isScaled() const;
 
-	virtual void resetScale();
+	 void resetScale();
 
 	/**
 	 * Return the X position of the centroid of the fuzzy set.
 	 * @return The position of the centroid or NAN if there're some error.
 	 */
-	virtual float getCentroid() const;
+	 float getCentroid() const;
 
 };
 

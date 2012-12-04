@@ -9,6 +9,11 @@
 
 log4cplus::Logger LinguisticVariable::logger = logging::getLogger("LinguisticVariable");
 
+LinguisticVariable::LinguisticVariable(const LinguisticVariable& toCopy): name(toCopy.name), min_range(toCopy.min_range), max_range(toCopy.max_range), initialized(toCopy.initialized) {
+
+
+}
+
 LinguisticVariable::LinguisticVariable(const std::string& _name,
 		float _min_range, float _max_range): name(_name){
 	if(_min_range >= _max_range){
@@ -26,7 +31,6 @@ LinguisticVariable::LinguisticVariable(const std::string& _name,
 
 LinguisticVariable::~LinguisticVariable() {
 	sets_data.freeContainer();	//Free the container that store all the pointers
-	//TODO: revise constructor
 }
 
 const float LinguisticVariable::membershipToASet(const std::string& setName,

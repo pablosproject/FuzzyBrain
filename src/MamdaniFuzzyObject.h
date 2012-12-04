@@ -9,18 +9,18 @@
 #define MAMDANIFUZZYOBJECT_H_
 
 #include "FuzzyObject.h"
-#include "InputLinguisticVariable.h"
+#include "linguistic_variables/InputLinguisticVariable.h"
 #include "MappedContainer.hpp"
-#include "MamdaniOutputVariable.h"
-#include "FuzzyRule.h"
-#include "AndOperator.h"
-#include "OrOperator.h"
-#include "RulesContainer.h"
-#include "ZadehianAnd.h"
-#include "ZadehianOr.h"
+#include "linguistic_variables/MamdaniOutputVariable.h"
+#include "fuzzy_rules/FuzzyRule.h"
+#include "operator/AndOperator.h"
+#include "operator/OrOperator.h"
+#include "fuzzy_rules/RulesContainer.h"
+#include "operator/ZadehianAnd.h"
+#include "operator/ZadehianOr.h"
 #include "Utility.h"
-#include "RuleAnalyzer.h"
-#include "COSDefuzzificator.h"
+#include "fuzzy_rules/RuleAnalyzer.h"
+#include "defuzzificators/COSDefuzzificator.h"
 
 struct NestedVar {
 
@@ -61,7 +61,7 @@ private:
 
 public:
 
-	~MamdaniFuzzyObject();	//TODO:Dealloca tutto quello che allochi, And, or
+	~MamdaniFuzzyObject();
 
 	/**
 	 * Constructor for tha Mamdani Fuzzy Object. It accept as a parameter the output variable,
@@ -109,7 +109,11 @@ public:
 	/**
 	 * @return The description of the fuzzy object, the name.
 	 */
+<<<<<<< HEAD
 	virtual const std::string& getName() const;
+=======
+	const std::string& getName() const;
+>>>>>>> Reoganization and partial XML parser implementation
 
 	/**
 	 * This function launch the fuzzyfication and defuzzification
@@ -117,7 +121,7 @@ public:
 	 * return the result by defuzzifying the output.
 	 * @return	The result of the fuzzy inference on the generic fuzzy object. NAN if there's some problem
 	 */
-	virtual float getOutput();
+	float getOutput();
 
 	const MamdaniOutputVariable* getOutputVar() const;
 

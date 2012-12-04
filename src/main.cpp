@@ -7,6 +7,7 @@
 //============================================================================
 
 #include <iostream>
+<<<<<<< HEAD
 #include "XMLFPParser.h"
 #include <log4cplus/loggingmacros.h>
 #include "FuzzyLogger.h"
@@ -20,11 +21,19 @@
 #include "MamdaniOutputVariable.h"
 #include "MamdaniFuzzyObject.h"
 #include "TrapezoidalFuzzySet.h"
+=======
+#include "engine_creator/XMLFPParser.h"
+>>>>>>> Reoganization and partial XML parser implementation
 
 using namespace std;
 
 int main() {
 
 	XMLFPParser	parser = XMLFPParser();
+<<<<<<< HEAD
 	parser.Parse("/Users/igloo/Downloads/FormaFisica.xml", NULL);
+=======
+	FuzzyEngine engine = FuzzyEngine();
+	parser.Parse("/Users/igloo/Downloads/FormaFisica.xml", &engine);
+>>>>>>> Reoganization and partial XML parser implementation
 }

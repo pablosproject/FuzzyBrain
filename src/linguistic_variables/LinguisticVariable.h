@@ -7,13 +7,14 @@
 
 #ifndef LINGUISTICVARIABLE_H_
 #define LINGUISTICVARIABLE_H_
-#include "FuzzySet.h"
 
 #include <map>
 #include <vector>
 #include <string>
-#include "Utility.h"
-#include "MappedContainer.hpp"
+#include "../Utility.h"
+#include "../MappedContainer.hpp"
+#include "../fuzzy_sets/FuzzySet.h"
+
 
 class LinguisticVariable {
 
@@ -44,7 +45,14 @@ public:
 	 */
 	LinguisticVariable(const std::string& _name, float _min_range,
 			float _max_range); //TODO: constrolla che il min e il massimo siano corretti
-	~LinguisticVariable();
+	virtual ~LinguisticVariable();
+
+	/**
+	 * Default copy constructor of a linguistic variable, copy all internal
+	 * sets and variables.
+	 * @param toCopy the object to copy
+	 */
+	LinguisticVariable(const LinguisticVariable& toCopy);
 
 	/***
 	 * Function that calculate the membership of a variable to a fuzzy set,

@@ -7,7 +7,7 @@
 
 #ifndef POLYGONALSHAPE_H_
 #define POLYGONALSHAPE_H_
-#include "Utility.h"
+#include "../Utility.h"
 
 class PolygonalShape {
 

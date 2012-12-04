@@ -13,9 +13,12 @@ const std::string MamdaniFuzzyObject::NOT_INITIALIZED_STRING =
 		"Not initialized.";
 
 MamdaniFuzzyObject::~MamdaniFuzzyObject() {
-	// TODO Auto-generated destructor stub
+
 	this->inputVars.freeContainer();
 	delete (this->outputVar);
+	delete (andOP);
+	delete (orOP);
+	delete (defuzzificator);
 }
 
 MamdaniFuzzyObject::MamdaniFuzzyObject(AndOperator* _and, OrOperator* _or,
