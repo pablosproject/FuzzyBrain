@@ -84,9 +84,7 @@ float area::areaTrapeziod(float A, float B, float C, float D, float height) {
 }
 
 float centroid::centroidRectange(float A, float B) {
-	float numerator = (B*B) - (A*A);
-	float denumerator = 2 *(B - A);
-	return numerator/denumerator;
+	return (B+A)/2;
 }
 
 float area::areaRectange(float A, float B, float height) {

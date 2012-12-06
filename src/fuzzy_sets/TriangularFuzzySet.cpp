@@ -104,7 +104,7 @@ bool TriangularFuzzySet::checkConsistence() {
 		return true;
 }
 
-bool TriangularFuzzySet::scale(float value) {
+bool TriangularFuzzySet::mamdaniScale(float value) {
 	if (this -> initialized)
 		return this->triangle.scale(value);
 	else{

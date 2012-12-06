@@ -57,7 +57,7 @@ public:
 
 	virtual void setName(const std::string& _name);
 
-	virtual bool scale(float value);
+	virtual bool mamdaniScale(float value);
 	virtual float getScale() const;
 	virtual bool isScaled() const;
 	virtual float getArea() const;

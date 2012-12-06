@@ -11,6 +11,7 @@
 #include "Defuzzificator.h"
 
 class COSDefuzzificator: public Defuzzificator {
+
 public:
 
 	COSDefuzzificator();

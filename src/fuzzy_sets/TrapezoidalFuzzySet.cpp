@@ -110,7 +110,7 @@ float TrapezoidalFuzzySet::getArea() const {
 	return this->trapezoid.getArea();
 }
 
-bool TrapezoidalFuzzySet::scale(float value) {
+bool TrapezoidalFuzzySet::mamdaniScale(float value) {
 
 	if (this -> initialized)
 		return this->trapezoid.scale(value);

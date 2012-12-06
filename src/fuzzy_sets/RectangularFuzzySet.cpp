@@ -112,7 +112,7 @@ float RectangularFuzzySet::getArea() const {
 	return this->rectangle.getArea();
 }
 
-bool RectangularFuzzySet::scale(float value) {
+bool RectangularFuzzySet::mamdaniScale(float value) {
 
 	if (this -> initialized)
 		return this->rectangle.scale(value);

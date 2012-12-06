@@ -85,7 +85,7 @@ bool SingletonFuzzySet::checkConsistence(){
 		return true;
 }
 
-bool SingletonFuzzySet::scale(float value) {
+bool SingletonFuzzySet::mamdaniScale(float value) {
 }
 
 float SingletonFuzzySet::getScale() const {

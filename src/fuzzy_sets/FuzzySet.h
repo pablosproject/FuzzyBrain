@@ -79,7 +79,7 @@ public:
 	 * @param value	The size of the scale. Must be between 0 and 1.
 	 * @return	A boolean that confirm the operation.
 	 */
-	virtual bool scale(float value) = 0;
+	virtual bool mamdaniScale(float value) = 0;
 
 	virtual float getScale() const = 0;
 

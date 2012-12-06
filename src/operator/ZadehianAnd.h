@@ -13,7 +13,7 @@
 class ZadehianAnd: public AndOperator {
 public:
 
-	virtual float andOperation (float f1 , float f2) const;
+	float andOperation (float f1 , float f2) const;
 };
 
 #endif /* ZADEHIANAND_H_ */

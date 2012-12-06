@@ -16,10 +16,10 @@ float COSDefuzzificator::defuzzify(const MamdaniOutputVariable* output) const {
 	float numerator = 0;
 	float denumerator = 0;
 
-	if (output->getNumberOfModulatedSet() == 0)
+	if (output->getNumberOfFinalSet() == 0)
 		return NAN;
 
-	for (int i = 0 ; i<output->getNumberOfModulatedSet(); i++){
+	for (int i = 0 ; i<output->getNumberOfFinalSet(); i++){
 		int id = output->getModulatedSet()[i];
 		float area = output->getSet(id)->getArea();
 		float centroid = output->getSet(id)->getCentroid();

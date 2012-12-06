@@ -110,10 +110,14 @@ public:
 	 * @return The description of the fuzzy object, the name.
 	 */
 <<<<<<< HEAD
+	const std::string& getName() const;
+=======
+<<<<<<< HEAD
 	virtual const std::string& getName() const;
 =======
 	const std::string& getName() const;
 >>>>>>> Reoganization and partial XML parser implementation
+>>>>>>> de9151170be91f346d2f0cb77ba7185c4eaa0a41
 
 	/**
 	 * This function launch the fuzzyfication and defuzzification

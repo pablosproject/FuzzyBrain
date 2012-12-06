@@ -10,6 +10,14 @@
 
 #include "LinguisticVariable.h"
 
+/**
+ * This class represent the output variable of a Mamdani fuzzy inference
+ * system.
+ * It handles the aggregation operator, and uses it on all the fuzzy sets that results
+ * from the implication.
+ * The implication method used for the Mamdani Inference
+ */
+
 class MamdaniOutputVariable: public LinguisticVariable {
 
 private:
@@ -26,7 +34,7 @@ public:
 
 	bool modulateOutputSet(int setID, float modulationValue);
 
-	int getNumberOfModulatedSet() const;
+	int getNumberOfFinalSet() const;
 	const vector<int>& getModulatedSet() const;
 
 	/**
@@ -34,6 +42,8 @@ public:
 	 * a fuzzyfication is called more than one time.
 	 */
 	void resetVariableModulation();
+
+	float membershipForPoint(float point) const;
 };
 
 #endif /* MAMDANIOUTPUTVARIABLE_H_ */

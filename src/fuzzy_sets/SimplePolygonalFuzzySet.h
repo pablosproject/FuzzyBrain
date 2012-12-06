@@ -22,7 +22,7 @@ public:
 
 	virtual float getUpBoundary() const = 0;
 
-	virtual bool scale(float value) = 0;
+	virtual bool mamdaniScale(float value) = 0;
 
 	virtual float CalculateMembership(float point) const = 0;
 
