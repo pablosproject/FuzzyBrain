@@ -23,11 +23,11 @@ void RulesContainer::addRule(MamdaniRule* rule) {
 	this->rules.push_back(rule);
 }
 
-bool RulesContainer::createCache(const MappedContainer <InputLinguisticVariable*>& input) {
+bool RulesContainer::createCache(const MappedPointersContainer <InputLinguisticVariable>& input) {
 
 	//Create a new cache
 	this->values = std::vector<std::vector<float> >(input.getMaxID());
-	MappedContainerIt it;
+	MappedPointersContainerIt it;
 
 	//calculate the value for every variable and set with the given input
 	for (it = input.begin(); it != input.end(); it++) {
@@ -59,7 +59,7 @@ void RulesContainer::printCache() const{
 	}
 }
 
-bool RulesContainer::evaluateRules(const MappedContainer <InputLinguisticVariable*>& input, MamdaniOutputVariable *out){
+bool RulesContainer::evaluateRules(const MappedPointersContainer <InputLinguisticVariable>& input, MamdaniOutputVariable *out){
 
 	if(!createCache(input)){
 		LOG4CPLUS_ERROR(this->logger, "Error in creating the cache of input value.");

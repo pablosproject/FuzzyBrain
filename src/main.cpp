@@ -75,6 +75,10 @@ void testCentroid(){
 
 int main() {
 
-	testCentroid();
+	//testCentroid();
+	TriangularFuzzySet* first = new TriangularFuzzySet("first", -1, 2,3);
+	delete (first);
+	return 0;
+
 }
 

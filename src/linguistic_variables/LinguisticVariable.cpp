@@ -29,9 +29,7 @@ LinguisticVariable::LinguisticVariable(const std::string& _name,
 	}
 }
 
-LinguisticVariable::~LinguisticVariable() {
-	sets_data.freeContainer();	//Free the container that store all the pointers
-}
+LinguisticVariable::~LinguisticVariable() {}
 
 const float LinguisticVariable::membershipToASet(const std::string& setName,
 		float inputValue) const {
@@ -65,7 +63,6 @@ bool LinguisticVariable::addSet(FuzzySet* setToAdd) {
 
 	if(!checkConsistence())
 		return false;
-
 	float set_min = setToAdd->getLowBoundary();
 	float set_max = setToAdd->getUpBoundary();
 

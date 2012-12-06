@@ -23,7 +23,7 @@ RuleAnalyzer::RuleAnalyzer() :temp_consVar_name(""),
 }
 
 RuleAnalyzer::RuleAnalyzer(
-		 MappedContainer< InputLinguisticVariable*>* _input,
+		 MappedPointersContainer< InputLinguisticVariable>* _input,
 		 MamdaniOutputVariable* _output) :
 		temp_antLingVar(0), temp_set(0), temp_negated(false), temp_OP(
 				FuzzyRule::AND), state(INITIAL), objectInputPtr(_input), outputPtr(

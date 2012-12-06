@@ -10,7 +10,7 @@
 
 #include "FuzzyObject.h"
 #include "linguistic_variables/InputLinguisticVariable.h"
-#include "MappedContainer.hpp"
+#include "MappedPointersContainer.hpp"
 #include "linguistic_variables/MamdaniOutputVariable.h"
 #include "fuzzy_rules/FuzzyRule.h"
 #include "operator/AndOperator.h"
@@ -39,7 +39,7 @@ class MamdaniFuzzyObject: public FuzzyObject {
 
 private:
 
-	MappedContainer<InputLinguisticVariable*> inputVars;//Container with all the input variables.
+	MappedPointersContainer<InputLinguisticVariable> inputVars;//Container with all the input variables.
 	MamdaniOutputVariable* outputVar;						//Output variable
 
 	vector<NestedVar> nestedVariables;					 //Contain reference to the input nested

@@ -15,7 +15,7 @@
 #define RULEANALYZER_H_
 
 #include "MamdaniRule.h"
-#include "../MappedContainer.hpp"
+#include "../MappedPointersContainer.hpp"
 #include "../linguistic_variables/MamdaniOutputVariable.h"
 #include "../linguistic_variables/InputLinguisticVariable.h"
 #include "../Utility.h"
@@ -59,7 +59,7 @@ private:
 		ERROR
 	}state;
 
-	 MappedContainer< InputLinguisticVariable*>* objectInputPtr;	/**Reference of a container's input variables.*/
+	 MappedPointersContainer< InputLinguisticVariable>* objectInputPtr;	/**Reference of a container's input variables.*/
 	 MamdaniOutputVariable* outputPtr;	/**Reference of a container's output variable.*/
 
 	/**
@@ -118,7 +118,7 @@ private:
 public:
 
 	RuleAnalyzer();
-	RuleAnalyzer( MappedContainer<InputLinguisticVariable*>* _input,  MamdaniOutputVariable* _output);
+	RuleAnalyzer( MappedPointersContainer<InputLinguisticVariable>* _input,  MamdaniOutputVariable* _output);
 	virtual ~RuleAnalyzer();
 
 	/**

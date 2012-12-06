@@ -10,14 +10,14 @@
 
 #include "Utility.h"
 #include "MamdaniFuzzyObject.h"
-#include "MappedContainer.hpp"
+#include "MappedPointersContainer.hpp"
 
 class FuzzyEngine {
 
 private:
 
 	MamdaniFuzzyObject *rootObject;
-	MappedContainer<MamdaniFuzzyObject*> nestedObjects;
+	MappedPointersContainer<MamdaniFuzzyObject> nestedObjects;
 
 	//TODO:mettici l'engine creator
 

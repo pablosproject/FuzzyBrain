@@ -5,8 +5,8 @@
  *      Author: igloo
  */
 
-#ifndef MAPPEDCONTAINER_H_
-#define MAPPEDCONTAINER_H_
+#ifndef MAPPEDPOINTERSCONTAINER_H_
+#define MAPPEDPOINTERSCONTAINER_H_
 
 #include <vector>
 #include <map>
@@ -15,14 +15,15 @@
 
 using namespace std;
 
-typedef map<string,int>::const_iterator MappedContainerIt;
+typedef map<string,int>::const_iterator MappedPointersContainerIt;
 
 
-template <class X>class MappedContainer {
+template <class X>
+class MappedPointersContainer{
 
 private:
 
-	vector <X> elements;
+	vector <X*> elements;
 	map<string, int> lookup;
 	int ID;
 
@@ -31,9 +32,10 @@ private:
 
 public:
 
-	MappedContainer();
-	~MappedContainer();
+	MappedPointersContainer();
+	~MappedPointersContainer();
 
+	MappedPointersContainer(const MappedPointersContainer& toCopy);
 
 	/**
 	 * Insert an element in the container.
@@ -42,14 +44,14 @@ public:
 	 * @param object Pointer to the object to be added.
 	 * @return	A boolean that indicate if the operation was successful.
 	 */
-	bool insert(const string& name,  X object);
+	bool insert(const string& name,  X* object);
 
 	/**
 	 * Search for an object in the container, and eventually return it.
 	 * @param name	Name of the object to be searched.
 	 * @return A pointer to the object, or NULL if it is not find.
 	 */
-	X getElement(const string& name) const;
+	X* getElement(const string& name) const;
 
 	/**
 	 * Indicates if a given element is in the container.
@@ -70,7 +72,7 @@ public:
 	 * @param ID
 	 * @return	The element, or NULL if there're some errors
 	 */
-	X getElement(int _ID) const;
+	X* getElement(int _ID) const;
 
 	/**
 	 * Search if a given ID exist in the container
@@ -98,48 +100,59 @@ public:
 	 */
 	int getMaxID() const;
 
-	MappedContainerIt begin() const;
-	MappedContainerIt end() const;
+	MappedPointersContainerIt begin() const;
+	MappedPointersContainerIt end() const;
 
 };
 
-template <class X> log4cplus::Logger MappedContainer<X>::logger = logging::getLogger("MappedContainer");
+template <class X> log4cplus::Logger MappedPointersContainer<X>::logger = logging::getLogger("MappedContainer");
 
 template<class X>
-MappedContainer<X>::MappedContainer():ID(0){}
+MappedPointersContainer<X>::MappedPointersContainer():ID(0){}
 
 template<class X>
-MappedContainer<X>::~MappedContainer() {
+inline MappedPointersContainer<X>::MappedPointersContainer(
+		const MappedPointersContainer& toCopy): lookup(toCopy.lookup), ID(toCopy.ID) {
+	//deep copy
+	this->elements = vector<X*>(toCopy.elements.size());
+	for(unsigned int i = 0; i < toCopy.elements.size(); i++){
+		this->elements[i] = new X(*toCopy.elements[i]); // copy of all elements
+	}
+}
+
+
+template<class X>
+MappedPointersContainer<X>::~MappedPointersContainer() {
+	freeContainer();
 }
 
 template<class X>
-bool MappedContainer<X>::insert(const string& name,	X object) {
+bool MappedPointersContainer<X>::insert(const string& name,	X* object) {
 
-	bool correct = true;
 
 	if (name == ""){
 		LOG4CPLUS_ERROR(logger, "Cannot insert an element with empty name");
-		correct = false;
+		return false;
 	}
 
 	if(lookup.insert(pair<string, int>(name,ID)).second == false){
 		LOG4CPLUS_WARN(logger, "The element already esxist in the container");
-		correct =  false;
+		return false;
 	}
 
 	if (object == NULL){
 		LOG4CPLUS_ERROR(logger, "Cannot insert an empty pointer.");
-		correct = false;
+		return false;
 	}
 	elements.push_back(object);
 	ID++;
-	return correct;
+	return true;
 
 }
 
 
 template<class X>
-X MappedContainer<X>::getElement(const string& name) const {
+X* MappedPointersContainer<X>::getElement(const string& name) const {
 
 	if (name == ""){
 		LOG4CPLUS_ERROR(logger, "Could not find an element if the name is empty.");
@@ -158,7 +171,7 @@ X MappedContainer<X>::getElement(const string& name) const {
 }
 
 template<class X>
-const bool MappedContainer<X>::hasElement(const string& name) const {
+const bool MappedPointersContainer<X>::hasElement(const string& name) const {
 
 	if (name == ""){
 		LOG4CPLUS_ERROR(logger, "Could not find an element if the name is empty.");
@@ -174,7 +187,7 @@ const bool MappedContainer<X>::hasElement(const string& name) const {
 }
 
 template<class X>
-const int MappedContainer<X>::getID(const string& name) const {
+const int MappedPointersContainer<X>::getID(const string& name) const {
 
 	if (name == ""){
 		LOG4CPLUS_ERROR(logger, "Could not find an element if the name is empty.");
@@ -191,7 +204,7 @@ const int MappedContainer<X>::getID(const string& name) const {
 }
 
 template<class X>
-X MappedContainer<X>::getElement(int _ID) const {
+X* MappedPointersContainer<X>::getElement(int _ID) const {
 
 	if(_ID >=0 && _ID <= ID && elements[_ID] != NULL)
 		return elements[_ID];
@@ -200,7 +213,7 @@ X MappedContainer<X>::getElement(int _ID) const {
 }
 
 template<class X>
-const bool MappedContainer<X>::hasID(int _ID) const {
+const bool MappedPointersContainer<X>::hasID(int _ID) const {
 
 	if(_ID>=0 && _ID <= ID && elements[_ID] != NULL)
 		return true;
@@ -209,7 +222,7 @@ const bool MappedContainer<X>::hasID(int _ID) const {
 }
 
 template<class X>
-inline void MappedContainer<X>::freeContainer() {
+inline void MappedPointersContainer<X>::freeContainer() {
 
 	for (unsigned int i=0 ; i<elements.size(); i++){
 		delete(elements[i]);
@@ -218,23 +231,24 @@ inline void MappedContainer<X>::freeContainer() {
 }
 
 template<class X>
-inline int MappedContainer<X>::getLength() const {
+inline int MappedPointersContainer<X>::getLength() const {
 	return lookup.size();
 }
 
 template<class X>
-inline MappedContainerIt MappedContainer<X>::begin() const {
+inline MappedPointersContainerIt MappedPointersContainer<X>::begin() const {
 	return this->lookup.begin();
 }
 
 template<class X>
-inline MappedContainerIt MappedContainer<X>::end() const {
+inline MappedPointersContainerIt MappedPointersContainer<X>::end() const {
 	return this->lookup.end();
 }
 
 template<class X>
-inline int MappedContainer<X>::getMaxID() const {
+inline int MappedPointersContainer<X>::getMaxID() const {
 	return this->ID;
 }
+
 
 #endif /* MAPPEDCONTAINER_H_ */

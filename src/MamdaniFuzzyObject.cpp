@@ -14,7 +14,6 @@ const std::string MamdaniFuzzyObject::NOT_INITIALIZED_STRING =
 
 MamdaniFuzzyObject::~MamdaniFuzzyObject() {
 
-	this->inputVars.freeContainer();
 	delete (this->outputVar);
 	delete (andOP);
 	delete (orOP);

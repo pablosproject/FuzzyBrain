@@ -12,7 +12,7 @@
 #include <vector>
 #include <string>
 #include "../Utility.h"
-#include "../MappedContainer.hpp"
+#include "../MappedPointersContainer.hpp"
 #include "../fuzzy_sets/FuzzySet.h"
 
 
@@ -23,7 +23,7 @@ protected:
 	std::string name;
 	float min_range;
 	float max_range;
-	MappedContainer<FuzzySet*> sets_data;
+	MappedPointersContainer<FuzzySet> sets_data;
 	bool initialized;
 
 	FuzzySet* getMutableSet(int id);

@@ -12,7 +12,7 @@
 #include "../linguistic_variables/MamdaniOutputVariable.h"
 #include "../linguistic_variables/InputLinguisticVariable.h"
 #include "../Utility.h"
-#include "../MappedContainer.hpp"
+#include "../MappedPointersContainer.hpp"
 
 class RulesContainer {
 
@@ -26,7 +26,7 @@ private:
 	/**
 	 * Fill the cache vector with all the precalculated value for a given input
 	 */
-	bool createCache(const MappedContainer <InputLinguisticVariable*>& input);
+	bool createCache(const MappedPointersContainer <InputLinguisticVariable>& input);
 
 	//logger
 	static log4cplus::Logger logger;
@@ -45,7 +45,7 @@ public:
 	 *@param The vector that contains the input values of all the variables.
 	 * @return A boolean that indicates if the operation was done correctly.
 	 */
-	bool evaluateRules(const MappedContainer <InputLinguisticVariable*>& input, MamdaniOutputVariable* out);
+	bool evaluateRules(const MappedPointersContainer <InputLinguisticVariable>& input, MamdaniOutputVariable* out);
 
 	void printCache() const;
 };

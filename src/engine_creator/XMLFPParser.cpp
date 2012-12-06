@@ -221,15 +221,14 @@ bool XMLFPParser::loopRules(const xml_node& rules_root,
 	return true;
 }
 
-const pugi::char_t* XMLFPParser::consequentNameChip(
-		const xml_node& rules_root) {
+const char_t* XMLFPParser::consequentNameChip (const xml_node& rules_root){
 	return rules_root.child(RULES_TAG).child(RULE_TAG).child(
 			RULE_CONSEQUENT_TAG).child(
 			RULE_TOKENS_TAG).child(RULE_TOKEN_TAG).child(
 			LINGUISTIC_VARIABLE_TAG).first_child().value();
 }
 
-const pugi::char_t* XMLFPParser::consequentNameObject(
+const char_t* XMLFPParser::consequentNameObject(
 		const xml_node& object_root) {
 
 	xml_node consequent= object_root.child(FUZZY_OBJECT_BEHAVIOUR_TAG).child(
