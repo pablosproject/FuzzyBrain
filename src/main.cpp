@@ -7,31 +7,11 @@
 //============================================================================
 
 #include <iostream>
-<<<<<<< HEAD
 #include "MamdaniFuzzyObject.h"
 #include "fuzzy_sets/TriangularFuzzySet.h"
 #include "fuzzy_sets/TrapezoidalFuzzySet.h"
 #include "defuzzificators/CentroidDefuzzificator.h"
 
-=======
-<<<<<<< HEAD
-#include "XMLFPParser.h"
-#include <log4cplus/loggingmacros.h>
-#include "FuzzyLogger.h"
-#include "Utility.h"
-#include "RuleAnalyzer.h"
-#include "MamdaniRule.h"
-#include "LinguisticVariable.h"
-#include "TriangularFuzzySet.h"
-#include "RectangularFuzzySet.h"
-#include "MappedContainer.hpp"
-#include "MamdaniOutputVariable.h"
-#include "MamdaniFuzzyObject.h"
-#include "TrapezoidalFuzzySet.h"
-=======
-#include "engine_creator/XMLFPParser.h"
->>>>>>> Reoganization and partial XML parser implementation
->>>>>>> de9151170be91f346d2f0cb77ba7185c4eaa0a41
 
 using namespace std;
 
@@ -95,16 +75,6 @@ void testCentroid(){
 
 int main() {
 
-<<<<<<< HEAD
 	testCentroid();
-=======
-	XMLFPParser	parser = XMLFPParser();
-<<<<<<< HEAD
-	parser.Parse("/Users/igloo/Downloads/FormaFisica.xml", NULL);
-=======
-	FuzzyEngine engine = FuzzyEngine();
-	parser.Parse("/Users/igloo/Downloads/FormaFisica.xml", &engine);
->>>>>>> Reoganization and partial XML parser implementation
->>>>>>> de9151170be91f346d2f0cb77ba7185c4eaa0a41
 }
 

@@ -69,11 +69,7 @@ public:
 
 	 void setName(const std::string& _name);
 
-<<<<<<< HEAD
 	 bool mamdaniScale(float value);
-=======
-	 bool scale(float value);
->>>>>>> de9151170be91f346d2f0cb77ba7185c4eaa0a41
 
 	 float getScale() const;
 

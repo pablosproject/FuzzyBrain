@@ -25,13 +25,8 @@ public:
 	CentroidDefuzzificator(int samples = 100);
 	virtual ~CentroidDefuzzificator();
 
-<<<<<<< HEAD
 	float defuzzify(const MamdaniOutputVariable* output) const;
 	void setNumSample(int numSample);
-=======
-	float defuzzify(const LinguisticVariable* output);
-
->>>>>>> de9151170be91f346d2f0cb77ba7185c4eaa0a41
 };
 
 #endif /* CENTROIDDEFUZZIFICATOR_H_ */
