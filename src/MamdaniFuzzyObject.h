@@ -167,6 +167,9 @@ public:
 	 * @param defuzzificator
 	 */
 	void setDefuzzificator(Defuzzificator* defuzzificator);
+
+	//TODO: genera documentazione
+	const InputLinguisticVariable* getInputVar(const string& name) const;
 };
 
 #endif /* MAMDANIFUZZYOBJECT_H_ */

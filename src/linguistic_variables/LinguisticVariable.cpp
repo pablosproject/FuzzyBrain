@@ -148,3 +148,6 @@ FuzzySet* LinguisticVariable::getMutableSet(int id) {
 	return this->sets_data.getElement(id);
 }
 
+const FuzzySet* LinguisticVariable::getSet(const std::string& name) const {
+	return this->sets_data.getElement(name);
+}

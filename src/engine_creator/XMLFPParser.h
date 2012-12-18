@@ -16,6 +16,7 @@
 #include "../fuzzy_sets/TriangularFuzzySet.h"
 #include "../fuzzy_sets/RectangularFuzzySet.h"
 #include "../fuzzy_sets/TrapezoidalFuzzySet.h"
+#include "../fuzzy_sets/SingletonFuzzySet.h"
 #include <stdlib.h>
 #include <algorithm>
 #include "../FuzzyEngine.h"
@@ -84,8 +85,23 @@ private:
 	 * @return	True if the operation end successfully, false otherwise.
 	 */
 	bool loopRules(const xml_node& rules_root, MamdaniFuzzyObject* object);
+	/**
+	 * Loop over every knowledge chip
+	 * @param applicationRoot	The root of the xml document
+	 * @param object 			The MamdaniFuzzyObject that contain the knowledge chips
+	 * @param engine			The fuzzy engine to which the knowledge chips are added
+	 * @return True if the operation end successfully, false otherwise.
+	 */
 
 	bool loopKnowledgeChip(const xml_node& applicationRoot, MamdaniFuzzyObject* object, FuzzyEngine* engine );
+
+	/**
+	 * Process a knowledge chip, including all the object that are nested in the chip.
+	 * @param chipRoot	The xml node root for the chip.
+	 * @param engine	The main fuzzy engine.
+	 * @return	The output linguistic variable of the knowledge chip. NULL if the operation does not success.
+	 */
+	LinguisticVariable* processKnowledgeChip(const xml_node& chipRoot, FuzzyEngine* engine);
 
 	/**
 	 * Parse a single rule and add it to a object.
@@ -118,6 +134,13 @@ private:
 	 * @param rule The string that contain the rule description.
 	 */
 	void uniformRuleSintax(string& rule);
+
+	/**
+	 * Parse the entry of the xml as a float
+	 * @param
+	 * @return
+	 */
+	float extractFloat(const char_t*);
 
 	//logger
 	static log4cplus::Logger logger;

@@ -9,6 +9,10 @@
 #define MANUALINPUTPROVIDER_H_
 
 class ManualInputProvider {
+
+private:
+	char * input;
+
 public:
 	ManualInputProvider();
 	virtual ~ManualInputProvider();

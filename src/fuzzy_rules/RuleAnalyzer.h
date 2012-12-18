@@ -40,8 +40,10 @@ private:
 	/**
 	 * Stores the temporal value of the rule
 	 */
-	std::string temp_consVar_name;
-	int temp_antLingVar;
+	std::string temp_varName;
+	std::string temp_setName;
+
+	int temp_LingVarID;
 	int temp_set;
 	bool temp_negated;
 	FuzzyRule::logicalOperator temp_OP;
@@ -93,13 +95,13 @@ private:
 
 	void recognizeIf(std::string& input);
 
-	void recognizeVariable(std::string& input, bool isConsequent);
+	void recognizeVariable(std::string& input, bool isConsequent, istringstream& stream);
 
 	void recognizeIs(std::string& input, bool isConsequent);
 
-	void recognizeSet(std::string& input, bool isConsequent);
+	void recognizeSet(std::string& input, bool isConsequent, istringstream& stream);
 
-	void nextState(std::string& input);
+	void nextState(std::string& input, istringstream& stream);
 
 	int verifyInputVar(const std::string& varName) const;
 
@@ -110,6 +112,22 @@ private:
 	void resetTempVariables();
 
 	void resetMachineState();
+
+	void validateVariable(bool isConsequent, const std::string& inputVarName);
+
+	/**
+	 * Implement a simple lookahead function that search ahead
+	 * for a giuven string
+	 * @param stream	The streram to which find the string
+	 * @param toSearch	The string to search
+	 * @param lowerCase Convert the string to search in lowercase
+	 * @return	True if the string is found or false otherwise
+	 */
+	bool lookAhead(istringstream& stream, const std::string& toSearch,  bool lowerCase);
+
+	bool hasAhead(istringstream& stream);
+
+	void validateSetName(std::string& name, bool isConsequent);
 
 	//logging
 	static log4cplus::Logger logger;

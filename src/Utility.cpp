@@ -90,3 +90,4 @@ float centroid::centroidRectange(float A, float B) {
 float area::areaRectange(float A, float B, float height) {
 	return (B - A) * height;
 }
+

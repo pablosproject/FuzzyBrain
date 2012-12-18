@@ -16,8 +16,8 @@ const std::string RuleAnalyzer::OR_KEYWORD = "or";
 const std::string RuleAnalyzer::THEN_KEYWORD = "then";
 const std::string RuleAnalyzer::NOT_KEYWORD = "not";
 
-RuleAnalyzer::RuleAnalyzer() :temp_consVar_name(""),
-		temp_antLingVar(0), temp_set(0), temp_negated(false), temp_OP(
+RuleAnalyzer::RuleAnalyzer() :
+		temp_varName(""),temp_setName(""),temp_LingVarID(0), temp_set(0), temp_negated(false), temp_OP(
 				FuzzyRule::AND), state(ERROR), objectInputPtr(
 				NULL), outputPtr(NULL) {
 }
@@ -25,7 +25,8 @@ RuleAnalyzer::RuleAnalyzer() :temp_consVar_name(""),
 RuleAnalyzer::RuleAnalyzer(
 		 MappedPointersContainer< InputLinguisticVariable>* _input,
 		 MamdaniOutputVariable* _output) :
-		temp_antLingVar(0), temp_set(0), temp_negated(false), temp_OP(
+					temp_varName(""),temp_setName(""),
+		temp_LingVarID(0), temp_set(0), temp_negated(false), temp_OP(
 				FuzzyRule::AND), state(INITIAL), objectInputPtr(_input), outputPtr(
 				_output) {
 }
@@ -54,7 +55,7 @@ bool RuleAnalyzer::parseRule(MamdaniRule* rule) {
 
 	//Parse the string until there are words
 	while (iss >> token) {
-		nextState(token);
+		nextState(token, iss);
 
 		if (this->state == ERROR) {
 			LOG4CPLUS_ERROR(logger, "Error in parsing rule: "+ rule->getRuleDescription());
@@ -62,18 +63,21 @@ bool RuleAnalyzer::parseRule(MamdaniRule* rule) {
 			return false;
 		}
 		else if (this->state == SET_RECOGNIZED){
-			if (!rule->addAntecedentToken(temp_antLingVar, temp_set,
+			if (!rule->addAntecedentToken(temp_LingVarID, temp_set,
 					temp_negated, temp_OP))
 				return false;
 			resetTempVariables();
 		}
 		else if (this->state == SET_CONS_RECOGN_END)
-				if (!rule->addConsequent(temp_consVar_name, temp_set,
+				if (!rule->addConsequent(temp_varName, temp_set,
 						temp_negated))
 					return false;
 	}
 
-	return true;
+	if (this->state == SET_CONS_RECOGN_END)
+		return true; // if I reach the final state all correct
+	else
+		return false;
 }
 
 void RuleAnalyzer::toLowerCaseSTD(std::string &str) {
@@ -96,32 +100,32 @@ int RuleAnalyzer::verifyConsequentSet(const std::string& name) {
 	return this->outputPtr->getSetID(name);
 }
 
-void RuleAnalyzer::nextState(std::string& input) {
+void RuleAnalyzer::nextState(std::string& input, istringstream& stream) {
 	switch (this->state) {
 
 	case (INITIAL):
 		recognizeIf(input);
 		break;
 	case (START_RULE):
-		recognizeVariable(input, false);
+		recognizeVariable(input, false, stream);
 		break;
 	case (VARIABLE_RECOGNIZED):
 		recognizeIs(input, false);
 		break;
 	case (IS_RECOGNIZED):
-		recognizeSet(input, false);
+		recognizeSet(input, false, stream);
 		break;
 	case (SET_RECOGNIZED):
 		postSetRecognition(input);
 		break;
 	case (START_CONSEQUENT):
-		recognizeVariable(input, true);
+		recognizeVariable(input, true, stream);
 		break;
 	case (VAR_CONS_RECOGNIZED):
 		recognizeIs(input, true);
 		break;
 	case (IS_CONS_RECOGNIZED):
-		recognizeSet(input, true);
+		recognizeSet(input, true, stream);
 		break;
 	case (SET_CONS_RECOGN_END):{
 		/*
@@ -151,27 +155,38 @@ void RuleAnalyzer::recognizeIf(std::string& input) {
 	}
 }
 
-void RuleAnalyzer::recognizeVariable(std::string& input, bool isConsequent) {
-
+void RuleAnalyzer::validateVariable(bool isConsequent, const std::string& inputVarName) {
 	if (!isConsequent) {
-		int temp = verifyInputVar(input);
+		int temp = verifyInputVar(inputVarName);
 		if (temp >= 0) {
-			this->temp_antLingVar = temp;
+			this->temp_LingVarID = temp;
 			this->state = VARIABLE_RECOGNIZED;
+			this->temp_varName = "";
 		} else {
 			this->state = ERROR;
-			LOG4CPLUS_ERROR(logger, "Input variable not recognized. Found: "+ input);
+			LOG4CPLUS_ERROR(logger,
+					"Input variable not recognized. Found: "+ inputVarName);
 		}
 	} else {
-		if (verifyOutputVar(input)) {
-			this->temp_consVar_name = input;
+		if (verifyOutputVar(inputVarName)) {
 			this->state = VAR_CONS_RECOGNIZED;
-		}
-		else{
+		} else {
 			this->state = ERROR;
-			LOG4CPLUS_ERROR(logger, "Output variable not recognized. Found: "+ input);
+			LOG4CPLUS_ERROR(logger,
+					"Output variable not recognized. Found: "+ inputVarName);
 		}
 	}
+}
+
+void RuleAnalyzer::recognizeVariable(std::string& input, bool isConsequent, istringstream& stream) {
+
+	this->temp_varName =this->temp_varName + input;
+	if(!lookAhead(stream, IS_KEYWORD, true)){
+		this->temp_varName = this->temp_varName + " "; // Add a space at end of name beacuse the name is long
+	}
+	else
+		validateVariable(isConsequent, this->temp_varName);
+
 }
 
 void RuleAnalyzer::recognizeIs(std::string& input, bool isConsequent) {
@@ -188,34 +203,55 @@ void RuleAnalyzer::recognizeIs(std::string& input, bool isConsequent) {
 	}
 }
 
-void RuleAnalyzer::recognizeSet(std::string& input, bool isConsequent) {
+void RuleAnalyzer::recognizeSet(std::string& input, bool isConsequent,
+		istringstream& stream) {
 
 	std::string input_copy = input;
 	toLowerCaseSTD(input_copy);
 
-	if (input_copy == NOT_KEYWORD)//I search for the not keyword. If found stay in these state and then search the set.
+	if (input_copy == NOT_KEYWORD) //I search for the not keyword. If found stay in these state and then search the set.
 		temp_negated = true;		//no change of state
+	else {		// If i do not find the not keyword, I search for the set name
 
-	else {		// If i do not find the not keyword, I search for the set
-
-		int temp;
-		if (isConsequent)
-			temp = verifyConsequentSet(input);
-		else
-			temp = verifyAntecedentSet(this->temp_antLingVar, input);
-
-		if (temp >= 0) {
-			this->temp_set = temp;
-			if (isConsequent)
-				this->state = SET_CONS_RECOGN_END;
+		if (isConsequent) {
+			this->temp_setName = this->temp_setName + input;
+			if (!hasAhead(stream))
+				validateSetName(this->temp_setName, isConsequent);
 			else
-				this->state = SET_RECOGNIZED;
-		} else{
-			this->state = ERROR;
-			LOG4CPLUS_ERROR(logger, "Set not recognized. Found: "+ input);
+				this->temp_setName = this->temp_setName + " ";
+		} else {
+			this->temp_setName = this->temp_setName + input;
+
+			if (lookAhead(stream, OR_KEYWORD, true)
+					|| lookAhead(stream, AND_KEYWORD, true)
+					|| lookAhead(stream, THEN_KEYWORD, true)) {
+				validateSetName(this->temp_setName, isConsequent);
+			} else
+				this->temp_setName = this->temp_setName + " ";
 		}
 	}
 
+}
+
+
+void RuleAnalyzer::validateSetName(std::string& name, bool isConsequent){
+	int temp;
+	if (isConsequent)
+		temp = verifyConsequentSet(name);
+	else
+		temp = verifyAntecedentSet(this->temp_LingVarID, name);
+
+	if (temp >= 0) {
+		this->temp_set = temp;
+		this->temp_setName = "";
+		if (isConsequent)
+			this->state = SET_CONS_RECOGN_END;
+		else
+			this->state = SET_RECOGNIZED;
+	} else{
+		this->state = ERROR;
+		LOG4CPLUS_ERROR(logger, "Set not recognized. Found: "+ name);
+	}
 }
 
 void RuleAnalyzer::postSetRecognition(std::string& input){
@@ -280,10 +316,11 @@ void RuleAnalyzer::printRule(MamdaniRule* rule) {
 
 void RuleAnalyzer::resetTempVariables(){
 
-	this->temp_antLingVar = 0;
-	this->temp_consVar_name = "";
+	this->temp_LingVarID = 0;
 	this->temp_negated = false;
 	this->temp_set = 0;
+	this->temp_setName = "";
+	this-> temp_varName = "";
 }
 
 void RuleAnalyzer::resetMachineState(){
@@ -295,3 +332,29 @@ void RuleAnalyzer::resetMachineState(){
 void RuleAnalyzer::setOutputVar(MamdaniOutputVariable* var){
 	this->outputPtr = var;
 }
+
+bool RuleAnalyzer::lookAhead(istringstream& stream,
+		const std::string& toSearch, bool lowerCase) {
+	//save the last position
+
+	int position = stream.tellg();
+	string ahead;
+	stream >> ahead;
+	stream.seekg(position);
+
+	if (lowerCase)
+		toLowerCaseSTD(ahead);
+	return ahead == toSearch;
+}
+
+bool RuleAnalyzer::hasAhead(istringstream& stream){
+	int position = stream.tellg();
+	string ahead;
+	bool hasAhead = false;
+	if (stream >> ahead)
+		hasAhead = true;
+
+	stream.seekg(position);
+	return hasAhead;
+}
+

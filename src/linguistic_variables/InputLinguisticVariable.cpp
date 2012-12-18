@@ -22,6 +22,8 @@ InputLinguisticVariable::InputLinguisticVariable(const std::string& _name,
 	}
 }
 
+InputLinguisticVariable::InputLinguisticVariable(
+		const InputLinguisticVariable& toCopy): LinguisticVariable(toCopy), input(NAN) {}
 
 InputLinguisticVariable::~InputLinguisticVariable() {
 	// TODO Auto-generated destructor stub
@@ -50,3 +52,5 @@ bool InputLinguisticVariable::setInput(float input) {
 	}
 
 }
+
+

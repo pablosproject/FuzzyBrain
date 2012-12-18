@@ -192,3 +192,9 @@ bool MamdaniFuzzyObject::verifyInputVars() {
 
 	return true;	//at the end I must not have nested variables
 }
+
+const InputLinguisticVariable* MamdaniFuzzyObject::getInputVar(
+		const string& name) const {
+
+	return inputVars.getElement(name);
+}

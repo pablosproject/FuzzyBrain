@@ -50,3 +50,16 @@ bool FuzzyEngine::setinput(const std::string& object,
 		}
 	}
 }
+
+bool FuzzyEngine::populateEngine() {
+
+}
+
+const MamdaniFuzzyObject* FuzzyEngine::getObject(const string& objName) {
+
+	if (objName == rootObject->getName())
+		return this->rootObject;
+	else
+		return this->nestedObjects.getElement(objName);
+
+}

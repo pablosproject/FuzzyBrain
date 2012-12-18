@@ -13,5 +13,7 @@ XMLFPCreator::~XMLFPCreator() {
 }
 
 bool XMLFPCreator::createEngine(FuzzyEngine* engine) const {
+	XMLFPParser parser = XMLFPParser();
 
+	return parser.Parse(this->pathName, engine);
 }

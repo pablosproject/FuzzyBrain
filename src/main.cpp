@@ -11,9 +11,9 @@
 #include "fuzzy_sets/TriangularFuzzySet.h"
 #include "fuzzy_sets/TrapezoidalFuzzySet.h"
 #include "defuzzificators/CentroidDefuzzificator.h"
-
-
-using namespace std;
+#include "lib/getopt/getopt_pp.h"
+#include "FuzzyEngine.h"
+#include "engine_creator/XMLFPParser.h"
 
 
 void testCentroid(){
@@ -73,12 +73,57 @@ void testCentroid(){
 		    std::cout << "Output: "<< calculator->getOutput();
 }
 
-int main() {
+bool createEngine(FuzzyEngine& engine, GetOpt::GetOpt_pp& options){
+	//TODO: inserimento logging qui
+	string descriptor_path = "";
 
-	//testCentroid();
-	TriangularFuzzySet* first = new TriangularFuzzySet("first", -1, 2,3);
-	delete (first);
-	return 0;
+	if(options >> GetOpt::Option("xml", descriptor_path))
+	{
+		cout << "Read engine description from xml file. "<< descriptor_path<<"\n";
+		//setta in modo che il motore venga configurato, e se tutto a posto fai.
+		return true;
+	}
+	else
+	{
+		cout <<"Argomento errato: descrizione del motore non pervenuta.\n";
+		return false;
+	}
+}
+/**
+ * Function that parse the parameters and react to the option passed for the input.
+ * It automatically creates the engine's input provider and launch the input parsing.
+ * @param engine	The fuzzy engine already constructed.
+ * @param options	The command line options
+ * @return	A boolean to indicate the success of the operation.
+ */
+bool setInputs(FuzzyEngine& engine, GetOpt::GetOpt_pp& options){
 
+	string input_path = "";
+
+	if(options >> GetOpt::OptionPresent("inputStream"))
+	{
+		cout << "Read engine description from input stream. \n";
+		return true;
+
+	}
+	else if(options >> GetOpt::Option("fileInput", input_path))
+	{
+		cout << "Read engine description from input path: " << input_path <<".\n";
+		return true;
+	}
+	else if(options >> GetOpt::OptionPresent("stringInput")){
+		cout << "Read engine input from command line parameter. \n" ;
+	}
+	else{
+		cout << "Cannot find a valid input descriptor for the engine";
+		return false;
+	}
+
+}
+
+int main(int argc, char* argv[]) {
+
+	XMLFPParser parser = XMLFPParser();
+	parser.Parse("FormaFisica.xml",NULL);
 }
 

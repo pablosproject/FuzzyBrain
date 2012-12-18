@@ -12,6 +12,9 @@
 #include "MamdaniFuzzyObject.h"
 #include "MappedPointersContainer.hpp"
 
+class EngineCreator;
+class InputProvider;
+
 class FuzzyEngine {
 
 private:
@@ -19,7 +22,8 @@ private:
 	MamdaniFuzzyObject *rootObject;
 	MappedPointersContainer<MamdaniFuzzyObject> nestedObjects;
 
-	//TODO:mettici l'engine creator
+	EngineCreator *creator;
+	InputProvider* input;
 
 	void resetEngine();
 
@@ -39,6 +43,20 @@ public:
 	void run();
 
 	bool setinput(const std::string& object, const std::string& variable, float value);
+
+	//Provider of creation and input in the engine
+	//void setEngineCreator(const EngineCreator* creator);
+//	void setInputProvider(const InputProvider* input);
+
+	//Create the engine based on the input
+	bool populateEngine();
+	//set the input for the all the input variables of the engine
+	bool populateInput();
+
+	//Utility method for getting and setting fuzzy object
+	//TODO:digli che torna null
+	const MamdaniFuzzyObject* getObject(const string& objName);
+
 };
 
 #endif /* FUZZYENGINE_H_ */

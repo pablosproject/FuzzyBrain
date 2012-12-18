@@ -22,6 +22,9 @@ public:
 
 	InputLinguisticVariable(const std::string& _name, float _min_range,
 			float _max_range, float input);
+
+	InputLinguisticVariable(const InputLinguisticVariable& toCopy);
+
 	~InputLinguisticVariable();
 
 	bool isSetInput() const;

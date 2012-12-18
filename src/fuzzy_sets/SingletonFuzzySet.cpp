@@ -86,19 +86,26 @@ bool SingletonFuzzySet::checkConsistence(){
 }
 
 bool SingletonFuzzySet::mamdaniScale(float value) {
+	LOG4CPLUS_ERROR(this->logger, "Cannot scale a singleton fuzzy set. It can't be in a consequent.");
+	return false;
 }
 
 float SingletonFuzzySet::getScale() const {
+	return NAN;
 }
 
 float SingletonFuzzySet::getArea() const {
+	return 0;
 }
 
 float SingletonFuzzySet::getCentroid() const {
+	return this->A;
 }
 
 bool SingletonFuzzySet::isScaled() const {
+	return false;
 }
 
 void SingletonFuzzySet::resetScale() {
+	//TODO: revise implementation
 }

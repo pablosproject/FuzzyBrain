@@ -7,7 +7,5 @@
 
 #include "EngineCreator.h"
 
-
-
 EngineCreator::~EngineCreator() {}
 

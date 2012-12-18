@@ -97,6 +97,8 @@ public:
 	 */
 	int getSetID(const std::string& name) const;
 
+	const FuzzySet* getSet(const std::string& name)const;
+
 	const FuzzySet* getSet(int id)const;
 
 	float getMaxRange() const;
