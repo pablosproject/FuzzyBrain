@@ -135,7 +135,7 @@ bool MamdaniFuzzyObject::setInput(const std::string& varName,
 	}
 }
 
-float MamdaniFuzzyObject::getInputValue(const std::string& varName) {
+float MamdaniFuzzyObject::getInputValue(const std::string& varName) const{
 
 	int id = this->inputVars.getID(varName);
 

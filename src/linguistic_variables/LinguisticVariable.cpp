@@ -9,14 +9,11 @@
 
 log4cplus::Logger LinguisticVariable::logger = logging::getLogger("LinguisticVariable");
 
-LinguisticVariable::LinguisticVariable(const LinguisticVariable& toCopy): name(toCopy.name), min_range(toCopy.min_range), max_range(toCopy.max_range), initialized(toCopy.initialized) {
-
-
-}
+LinguisticVariable::LinguisticVariable(const LinguisticVariable& toCopy): name(toCopy.name), min_range(toCopy.min_range), max_range(toCopy.max_range), sets_data(toCopy.sets_data), initialized(toCopy.initialized) {}
 
 LinguisticVariable::LinguisticVariable(const std::string& _name,
 		float _min_range, float _max_range): name(_name){
-	if(_min_range >= _max_range){
+	if(_min_range > _max_range){
 		LOG4CPLUS_ERROR(this->logger, this->getName()+": range not correct in the linguistic variable.");
 		this->min_range = NAN;
 		this->max_range = NAN;

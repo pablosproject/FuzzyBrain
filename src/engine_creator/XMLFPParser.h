@@ -20,6 +20,7 @@
 #include <stdlib.h>
 #include <algorithm>
 #include "../FuzzyEngine.h"
+#include "../linguistic_variables/InputLinguisticVariable.h"
 
 using namespace pugi;
 
@@ -99,9 +100,9 @@ private:
 	 * Process a knowledge chip, including all the object that are nested in the chip.
 	 * @param chipRoot	The xml node root for the chip.
 	 * @param engine	The main fuzzy engine.
-	 * @return	The output linguistic variable of the knowledge chip. NULL if the operation does not success.
+	 * @return	The FuzzyObject created by the knowledge chip
 	 */
-	LinguisticVariable* processKnowledgeChip(const xml_node& chipRoot, FuzzyEngine* engine);
+	MamdaniFuzzyObject* processKnowledgeChip(const xml_node& chipRoot, FuzzyEngine* engine);
 
 	/**
 	 * Parse a single rule and add it to a object.
@@ -135,12 +136,7 @@ private:
 	 */
 	void uniformRuleSintax(string& rule);
 
-	/**
-	 * Parse the entry of the xml as a float
-	 * @param
-	 * @return
-	 */
-	float extractFloat(const char_t*);
+
 
 	//logger
 	static log4cplus::Logger logger;

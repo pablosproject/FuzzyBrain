@@ -25,6 +25,8 @@ private:
 	EngineCreator *creator;
 	InputProvider* input;
 
+	bool populated;
+
 	void resetEngine();
 
 	float result;
@@ -37,16 +39,16 @@ public:
 	FuzzyEngine();
 	~FuzzyEngine();//TODO: l'engine si occupa di disallocare tutti gli object che contiene
 
+	float run();
+
 	void addRootFuzzyObject( MamdaniFuzzyObject* root);
 	void addFuzzyObject( MamdaniFuzzyObject* object);
-
-	void run();
 
 	bool setinput(const std::string& object, const std::string& variable, float value);
 
 	//Provider of creation and input in the engine
-	//void setEngineCreator(const EngineCreator* creator);
-//	void setInputProvider(const InputProvider* input);
+	void setEngineCreator(EngineCreator* creator);
+	void setInputProvider(InputProvider* input);
 
 	//Create the engine based on the input
 	bool populateEngine();

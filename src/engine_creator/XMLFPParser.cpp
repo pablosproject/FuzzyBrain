@@ -49,9 +49,8 @@ bool XMLFPParser::Parse(const string& filePath, FuzzyEngine* engine){
 	file = filePath.c_str();
 
 	xml_parse_result result = doc.load_file(file);
-	cout<< "child"<< doc.first_child().first_child();
-	if (!file){
-		LOG4CPLUS_ERROR(this->logger, "Error in parsing the xml file. File inexistent or invalid.");
+	if (!result){
+		LOG4CPLUS_ERROR(this->logger, "Error in parsing the xml file. File inexistent or invalid: " << file);
 		return false;
 	}
 
@@ -74,7 +73,7 @@ bool XMLFPParser::Parse(const string& filePath, FuzzyEngine* engine){
 		}
 
 		//Cerco tutti i knowledge chip e li inserisco come variabili.
-		loopKnowledgeChip(application,NULL, engine);
+		loopKnowledgeChip(application,root, engine);
 
 		if (!loopRules(application.child(RULES_TAG),root)){
 			LOG4CPLUS_ERROR(this->logger, "Error in parse rules: " + consequent);
@@ -88,8 +87,6 @@ bool XMLFPParser::Parse(const string& filePath, FuzzyEngine* engine){
 		//Parse only the fuzzy object and stop it
 		return parseFuzzyObject(fuzzy_object, root);
 	}
-
-	engine->addRootFuzzyObject(root);
 
 }
 
@@ -145,8 +142,8 @@ bool XMLFPParser::processInputVariable(const xml_node& var_root,
 		MamdaniFuzzyObject* object) {
 
 	InputLinguisticVariable *variable = new InputLinguisticVariable(var_root.child(LINGUISTIC_VARIABLE_ID_TAG).first_child().value(),
-																	extractFloat(var_root.child(LINGUISTIC_VARIABLE_LOW_BOUND_TAG).child(LINGUISTIC_VARIABLE_VALUE_TAG).first_child().value()),
-																	extractFloat(var_root.child(LINGUISTIC_VARIABLE_UP_BOUND_TAG).child(LINGUISTIC_VARIABLE_VALUE_TAG).first_child().value()));
+																	parsing::extractFloat(var_root.child(LINGUISTIC_VARIABLE_LOW_BOUND_TAG).child(LINGUISTIC_VARIABLE_VALUE_TAG).first_child().value()),
+																	parsing::extractFloat(var_root.child(LINGUISTIC_VARIABLE_UP_BOUND_TAG).child(LINGUISTIC_VARIABLE_VALUE_TAG).first_child().value()));
 	if(!loopFuzzySets(var_root.child(LINGUISTIC_VARIABLE_SETS_TAG),variable)){
 		LOG4CPLUS_ERROR(this->logger, "Error in parsing the fuzzy set for the variable : " + std::string(var_root.child(LINGUISTIC_VARIABLE_ID_TAG).first_child().value()));
 		return false;
@@ -159,8 +156,8 @@ bool XMLFPParser::processOutputVariable(const xml_node& var_root,
 		MamdaniFuzzyObject* object) {
 
 	MamdaniOutputVariable *variable = new MamdaniOutputVariable(var_root.child(LINGUISTIC_VARIABLE_ID_TAG).first_child().value(),
-																	extractFloat(var_root.child(LINGUISTIC_VARIABLE_LOW_BOUND_TAG).child(LINGUISTIC_VARIABLE_VALUE_TAG).first_child().value()),
-																	extractFloat(var_root.child(LINGUISTIC_VARIABLE_UP_BOUND_TAG).child(LINGUISTIC_VARIABLE_VALUE_TAG).first_child().value()));
+																	parsing::extractFloat(var_root.child(LINGUISTIC_VARIABLE_LOW_BOUND_TAG).child(LINGUISTIC_VARIABLE_VALUE_TAG).first_child().value()),
+																	parsing::extractFloat(var_root.child(LINGUISTIC_VARIABLE_UP_BOUND_TAG).child(LINGUISTIC_VARIABLE_VALUE_TAG).first_child().value()));
 
 	if(!loopFuzzySets(var_root.child(LINGUISTIC_VARIABLE_SETS_TAG),variable)){
 		LOG4CPLUS_ERROR(this->logger, "Error in parsing the fuzzy set for the variable : " + std::string(var_root.child(LINGUISTIC_VARIABLE_ID_TAG).first_child().value()));
@@ -175,18 +172,16 @@ bool XMLFPParser::parseFuzzySet (const xml_node& node, LinguisticVariable* varia
 
 	xml_node magnitude = node.child(LINGUISTIC_VARIABLE_SET_DEFINITION_TAG);
 
-	float A = extractFloat(magnitude.child(LINGUISTIC_VARIABLE_SET_POINT_A_TAG).first_child().value());
-	float B = extractFloat(magnitude.child(LINGUISTIC_VARIABLE_SET_POINT_B_TAG).first_child().value());
-	float C = extractFloat(magnitude.child(LINGUISTIC_VARIABLE_SET_POINT_C_TAG).first_child().value());
-	float D =extractFloat(magnitude.child(LINGUISTIC_VARIABLE_SET_POINT_D_TAG).first_child().value());
+	float A = parsing::extractFloat(magnitude.child(LINGUISTIC_VARIABLE_SET_POINT_A_TAG).first_child().value());
+	float B = parsing::extractFloat(magnitude.child(LINGUISTIC_VARIABLE_SET_POINT_B_TAG).first_child().value());
+	float C = parsing::extractFloat(magnitude.child(LINGUISTIC_VARIABLE_SET_POINT_C_TAG).first_child().value());
+	float D =parsing::extractFloat(magnitude.child(LINGUISTIC_VARIABLE_SET_POINT_D_TAG).first_child().value());
 
-	std::cout<< "Fuzzy Set:"<< node.child(LINGUISTIC_VARIABLE_SET_ID_TAG).first_child().value();
-	std::cout << " A "<< magnitude.child(LINGUISTIC_VARIABLE_SET_POINT_A_TAG).first_child().value()<< " ";
-	std::cout << " B "<< magnitude.child(LINGUISTIC_VARIABLE_SET_POINT_B_TAG).first_child().value()<< " ";
-	std::cout << " C "<< magnitude.child(LINGUISTIC_VARIABLE_SET_POINT_C_TAG).first_child().value()<< " ";
-	std::cout << " D "<< magnitude.child(LINGUISTIC_VARIABLE_SET_POINT_D_TAG).first_child().value()<< " " <<"\n";
-
-	std::cout<< "Fuzzy Set:"<< node.child(LINGUISTIC_VARIABLE_SET_ID_TAG).first_child().value()<<" .A "<< A << " B "<< B << " C "<< C <<" D "<< D <<" \n";
+	LOG4CPLUS_DEBUG(this->logger, "Fuzzy Set:"<< node.child(LINGUISTIC_VARIABLE_SET_ID_TAG).first_child().value());
+	LOG4CPLUS_DEBUG(this->logger, " A "<< magnitude.child(LINGUISTIC_VARIABLE_SET_POINT_A_TAG).first_child().value());
+	LOG4CPLUS_DEBUG(this->logger, " B "<< magnitude.child(LINGUISTIC_VARIABLE_SET_POINT_B_TAG).first_child().value());
+	LOG4CPLUS_DEBUG(this->logger, " C "<< magnitude.child(LINGUISTIC_VARIABLE_SET_POINT_C_TAG).first_child().value());
+	LOG4CPLUS_DEBUG(this->logger, " D "<< magnitude.child(LINGUISTIC_VARIABLE_SET_POINT_D_TAG).first_child().value());
 
 	correctPoint(A,variable);
 	correctPoint(B,variable);
@@ -286,42 +281,71 @@ bool XMLFPParser::loopKnowledgeChip(const xml_node& applicationRoot,
 
 	//Loop on all the knowledge chips
 	for(xml_node chips = applicationRoot.child(KNOWLEDGE_CHIP_TAG); chips; chips = chips.next_sibling(KNOWLEDGE_CHIP_TAG)){
-		//debug, print name
-		std::cout << "Chip Name: "<< chips.first_child().first_child().value()<<"\n";
-		//process every single knowledge chip
-		LinguisticVariable* result = processKnowledgeChip(chips,engine);
+		LOG4CPLUS_DEBUG(this->logger, "Chip Name: " << chips.first_child().first_child().value());
 
-		//take the output var of the created knowledge chip, and then add it as input of the root.
+		//process every single knowledge chip
+		if(MamdaniFuzzyObject* result = processKnowledgeChip(chips,engine)){
+			InputLinguisticVariable *temp = new InputLinguisticVariable(*(result->getOutputVar()));
+			if(!object->addInputVar(temp) && !object->setInput(temp->getName(),result)){
+				LOG4CPLUS_ERROR(this->logger, "Error in adding the input nested variable for chip named: " << chips.first_child().first_child().value());
+				return false;
+			}
+			else
+				engine->addFuzzyObject(result);
+		}
+		else{
+			LOG4CPLUS_ERROR(this->logger, "Error in processing the chip named: " << chips.first_child().first_child().value());
+			return false;
+		}
 	}
+	return true;
 }
 
-LinguisticVariable* XMLFPParser::processKnowledgeChip(
+MamdaniFuzzyObject* XMLFPParser::processKnowledgeChip(
 		const xml_node& chipRoot, FuzzyEngine* engine) {
 
 	MamdaniFuzzyObject *object_chip = new MamdaniFuzzyObject();
+
 	//Output variable name for the chip
 	string consequent = consequentNameChip(chipRoot);
 	uniformTokenName(consequent);
-	std::cout <<"Consequent name :" << consequent <<"\n";
 
-	//Search for function
+	//Search for linguistic variables of the fuzzy set
 	if(!loopLinguisticVariables(chipRoot,object_chip,consequent)){
 		LOG4CPLUS_ERROR(this->logger, "Error in processing knowledge chip's"+ consequent +" linguistic variables.");
 		return NULL;
 	}
+
 	//Search for fuzzy object nested
+	if(chipRoot.child(FUZZY_OBJECT_TAG)){
+		//Process every object and extract the input var fot the knowledge chip
+		for(xml_node obj = chipRoot.child(FUZZY_OBJECT_TAG) ; obj; obj = obj.next_sibling(FUZZY_OBJECT_TAG)){
+			MamdaniFuzzyObject *temp = new MamdaniFuzzyObject();	//temp obj storage
+			if (parseFuzzyObject(obj,temp)){
+				engine->addFuzzyObject(temp);
 
-	//Search for rules
+				const LinguisticVariable *out = temp->getOutputVar();
+				InputLinguisticVariable * input = new InputLinguisticVariable(*out);
+				cout << input->getNumberOfSet()<<"\n";
 
+				if (!object_chip->addInputVar(input) && object_chip->setInput(out->getName(), temp)){ // add the input variable and refer it to other objects
+					LOG4CPLUS_ERROR(this->logger, "Error in creating nested input var knowledge chip: " + consequent);
+					return NULL;
+				}
+			}
+			else{
+				LOG4CPLUS_ERROR(this->logger, "Error during the parsing of the nested fuzzy object of the knowledge chip: " + consequent);
+				return NULL;
+			}
+		}
+	}
+
+	//Search for rules for the external knowledge chip
 	if(!loopRules(chipRoot.child(RULES_TAG),object_chip)){
 		LOG4CPLUS_ERROR(this->logger, "Error in processing knowledge chip's"+ consequent +"rules.");
 		return NULL;
 	}
+
+	return object_chip;
 }
 
-float XMLFPParser::extractFloat(const char_t* toConvert) {
-
-	string res = string(toConvert);
-	replace(res.begin(), res.end(),',','.');
-	return atof(res.c_str());
-}

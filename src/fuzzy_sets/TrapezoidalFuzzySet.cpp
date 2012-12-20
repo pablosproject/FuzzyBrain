@@ -145,3 +145,7 @@ bool TrapezoidalFuzzySet::isScaled() const {
 void TrapezoidalFuzzySet::resetScale() {
 	this->trapezoid.resetScale();
 }
+
+TrapezoidalFuzzySet* TrapezoidalFuzzySet::clone() const {
+	return new TrapezoidalFuzzySet(*this);
+}

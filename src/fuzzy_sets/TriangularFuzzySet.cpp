@@ -146,3 +146,7 @@ bool TriangularFuzzySet::isScaled() const {
 void TriangularFuzzySet::resetScale() {
 	this->triangle.resetScale();
 }
+
+TriangularFuzzySet* TriangularFuzzySet::clone() const {
+	return new TriangularFuzzySet(*this);
+}

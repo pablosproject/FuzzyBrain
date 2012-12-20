@@ -91,3 +91,9 @@ float area::areaRectange(float A, float B, float height) {
 	return (B - A) * height;
 }
 
+float parsing::extractFloat(const char* toConvert) {
+		std::string res = std::string(toConvert);
+		replace(res.begin(), res.end(),',','.');
+		return atof(res.c_str());
+	}
+

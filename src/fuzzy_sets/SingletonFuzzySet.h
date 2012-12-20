@@ -64,6 +64,8 @@ public:
 	virtual float getCentroid() const;
 	virtual void resetScale();
 
+	SingletonFuzzySet* clone() const;
+
 
 };
 

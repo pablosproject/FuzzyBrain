@@ -23,7 +23,7 @@ public:
 	InputLinguisticVariable(const std::string& _name, float _min_range,
 			float _max_range, float input);
 
-	InputLinguisticVariable(const InputLinguisticVariable& toCopy);
+	InputLinguisticVariable(const LinguisticVariable& toCopy);
 
 	~InputLinguisticVariable();
 
@@ -37,6 +37,8 @@ public:
 	float getInput() const;
 
 	bool setInput(float input);
+
+	void replaceSets();
 };
 
 #endif /* INPUTLINGUISTICVARIABLE_H_ */

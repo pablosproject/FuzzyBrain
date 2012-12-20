@@ -148,3 +148,7 @@ bool RectangularFuzzySet::isScaled() const {
 void RectangularFuzzySet::resetScale() {
 	this->rectangle.resetScale();
 }
+
+RectangularFuzzySet* RectangularFuzzySet::clone() const {
+	return new RectangularFuzzySet(*this);
+}

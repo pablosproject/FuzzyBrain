@@ -149,7 +149,7 @@ public:
 	 * @param varName	The name of the variable.
 	 * @return	A float with the value for the input variable. NAN if there's some problem.
 	 */
-	float getInputValue(const std::string& varName);
+	float getInputValue(const std::string& varName) const;
 
 	/**
 	 * Debugging function

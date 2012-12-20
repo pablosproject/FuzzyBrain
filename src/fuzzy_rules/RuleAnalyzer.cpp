@@ -76,8 +76,11 @@ bool RuleAnalyzer::parseRule(MamdaniRule* rule) {
 
 	if (this->state == SET_CONS_RECOGN_END)
 		return true; // if I reach the final state all correct
-	else
+	else{
+		LOG4CPLUS_ERROR(this->logger, "Error in parsing the rule: " + rule->getRuleDescription());
 		return false;
+	}
+
 }
 
 void RuleAnalyzer::toLowerCaseSTD(std::string &str) {
@@ -216,10 +219,13 @@ void RuleAnalyzer::recognizeSet(std::string& input, bool isConsequent,
 		if (isConsequent) {
 			this->temp_setName = this->temp_setName + input;
 			if (!hasAhead(stream))
+			{
 				validateSetName(this->temp_setName, isConsequent);
+			}
 			else
 				this->temp_setName = this->temp_setName + " ";
-		} else {
+		}
+		else {
 			this->temp_setName = this->temp_setName + input;
 
 			if (lookAhead(stream, OR_KEYWORD, true)
@@ -341,7 +347,6 @@ bool RuleAnalyzer::lookAhead(istringstream& stream,
 	string ahead;
 	stream >> ahead;
 	stream.seekg(position);
-
 	if (lowerCase)
 		toLowerCaseSTD(ahead);
 	return ahead == toSearch;
@@ -353,8 +358,8 @@ bool RuleAnalyzer::hasAhead(istringstream& stream){
 	bool hasAhead = false;
 	if (stream >> ahead)
 		hasAhead = true;
-
 	stream.seekg(position);
+	stream.clear(); // reset the IOstate if not, it think to be at the end of stream
 	return hasAhead;
 }
 

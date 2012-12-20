@@ -109,3 +109,7 @@ bool SingletonFuzzySet::isScaled() const {
 void SingletonFuzzySet::resetScale() {
 	//TODO: revise implementation
 }
+
+SingletonFuzzySet* SingletonFuzzySet::clone() const {
+	return new SingletonFuzzySet(*this);
+}

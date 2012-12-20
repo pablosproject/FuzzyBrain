@@ -34,6 +34,7 @@ public:
 
 	~TrapezoidalFuzzySet();
 
+	TrapezoidalFuzzySet* clone() const;
 	/**
 	 * Used to set the value of a trapezoidal fuzzy set.
 	 * The point A,B,C, must be growing on the x axys and

@@ -6,14 +6,18 @@
  */
 
 #include "FuzzyEngine.h"
+#include "input_providers/InputProvider.h"
+#include "engine_creator/EngineCreator.h"
 
 log4cplus::Logger FuzzyEngine::logger = logging::getLogger("FuzzyEngine	");
 
-FuzzyEngine::FuzzyEngine():rootObject(NULL), result(NAN){}
+FuzzyEngine::FuzzyEngine():rootObject(NULL), creator(NULL),input(NULL), populated(false), result(NAN){}
 
 FuzzyEngine::~FuzzyEngine() {
 	// TODO: assicurati di deallocare quello che  si deve deallocare
 	delete (rootObject);
+	delete(input);
+	delete(creator);
 	nestedObjects.freeContainer();
 }
 
@@ -30,9 +34,6 @@ void FuzzyEngine::addFuzzyObject(MamdaniFuzzyObject* object) {
 	this->nestedObjects.insert(object->getName(), object);
 }
 
-void FuzzyEngine::run() {
-	this->rootObject->getOutput();
-}
 
 bool FuzzyEngine::setinput(const std::string& object,
 		const std::string& variable, float value) {
@@ -52,7 +53,14 @@ bool FuzzyEngine::setinput(const std::string& object,
 }
 
 bool FuzzyEngine::populateEngine() {
-
+	//TODO: correggi in modo che non possa essere null il creator
+	if(creator->createEngine(this)){
+		this->populated = true;
+		return true;
+	}
+	else
+		//TODO: logga l'errore
+		return false;
 }
 
 const MamdaniFuzzyObject* FuzzyEngine::getObject(const string& objName) {
@@ -62,4 +70,32 @@ const MamdaniFuzzyObject* FuzzyEngine::getObject(const string& objName) {
 	else
 		return this->nestedObjects.getElement(objName);
 
+}
+
+void FuzzyEngine::setEngineCreator(EngineCreator* creator) {
+	if(this->creator)
+		delete(creator);
+	this->creator = creator;
+}
+
+void FuzzyEngine::setInputProvider(InputProvider* input) {
+	if(this->input)
+		delete(input);
+	this->input = input;
+}
+
+bool FuzzyEngine::populateInput() {
+	if(input->processInput(this))
+		return true;
+	else
+		//TODO:logga l'informazione
+		return false;
+}
+
+float FuzzyEngine::run() {
+	if(!populated)
+		populateEngine();
+	if(populateInput())
+	return rootObject->getOutput();
+	else return NAN;
 }

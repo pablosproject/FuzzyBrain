@@ -23,7 +23,7 @@ InputLinguisticVariable::InputLinguisticVariable(const std::string& _name,
 }
 
 InputLinguisticVariable::InputLinguisticVariable(
-		const InputLinguisticVariable& toCopy): LinguisticVariable(toCopy), input(NAN) {}
+		const LinguisticVariable& toCopy): LinguisticVariable(toCopy), input(NAN) {}
 
 InputLinguisticVariable::~InputLinguisticVariable() {
 	// TODO Auto-generated destructor stub
@@ -42,8 +42,11 @@ float InputLinguisticVariable::getInput() const {
 
 bool InputLinguisticVariable::setInput(float input) {
 
+	if(isSetInput() && input!=this->input)
+		LOG4CPLUS_WARN(this->logger,this->getName() + ": The value of the input already exist");
+
 	if (input > this->max_range || input < this->min_range){
-		LOG4CPLUS_WARN(this->logger, this->getName() + "Input cannot be set because it's out of range.");
+		LOG4CPLUS_ERROR(this->logger, this->getName() + "Input cannot be set because it's out of range.");
 		return false;
 	}
 	else{

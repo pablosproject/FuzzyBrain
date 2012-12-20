@@ -7,15 +7,22 @@
 
 #ifndef MANUALINPUTPROVIDER_H_
 #define MANUALINPUTPROVIDER_H_
+#include "InputProvider.h"
 
-class ManualInputProvider {
+class ManualInputProvider : public InputProvider {
 
 private:
-	char * input;
+	string input;
 
 public:
+
 	ManualInputProvider();
+	ManualInputProvider(const char *in);
 	virtual ~ManualInputProvider();
+
+	virtual bool processInput(FuzzyEngine* engine);
+
+	static log4cplus::Logger logger;
 };
 
 #endif /* MANUALINPUTPROVIDER_H_ */

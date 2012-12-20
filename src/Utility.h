@@ -65,5 +65,10 @@ namespace area{
 	float areaRectange(float A, float B, float height);
 }
 
+namespace parsing{
+
+	float extractFloat(const char* toConvert);
+}
+
 #endif /* RECTUTIL_H_ */
 

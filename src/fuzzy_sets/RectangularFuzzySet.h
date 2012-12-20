@@ -60,6 +60,8 @@ public:
 
 	 float CalculateMembership (float point) const;
 
+	 RectangularFuzzySet* clone() const;
+
 	 float getUpBoundary() const;
 	 float getLowBoundary() const;
 

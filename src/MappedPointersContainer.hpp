@@ -116,7 +116,7 @@ inline MappedPointersContainer<X>::MappedPointersContainer(
 	//deep copy
 	this->elements = vector<X*>(toCopy.elements.size());
 	for(unsigned int i = 0; i < toCopy.elements.size(); i++){
-		this->elements[i] = new X(*toCopy.elements[i]); // copy of all elements
+		this->elements[i] = toCopy.elements[i]->clone(); // copy of all elements
 	}
 }
 

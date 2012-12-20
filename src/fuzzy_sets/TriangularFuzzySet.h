@@ -34,6 +34,7 @@ public:
 	TriangularFuzzySet(const std::string& _name,  float Apoint, float BPoint, float Cpoint);
 
 
+	TriangularFuzzySet* clone() const;
 	/**
 	 * Used to set the value of a triangle fuzzy set.
 	 * The point A,B,C must be groeing on the x axys and

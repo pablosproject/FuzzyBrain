@@ -45,6 +45,8 @@ public:
 
 	virtual void setName(const std::string& _name);
 
+	virtual FuzzySet* clone() const = 0;
+
 	/**
 	 * Implement these method, so the linguistic variable can know the
 	 * boundariy of the set.
