@@ -124,3 +124,4 @@ void FuzzyEngine::setAllDefuzzificator(Defuzzificator* defuzz) {
 
 	rootObject->setDefuzzificator(defuzz->clone());
 }
+

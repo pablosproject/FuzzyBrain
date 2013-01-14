@@ -40,7 +40,10 @@ bool RulesContainer::createCache(const MappedPointersContainer <InputLinguisticV
 			if(!notNumber::checkNaN(inputValue))				//check consistence of the input value
 				values[idVar][j] = input.getElement(idVar)->membershipToASet(j,input.getElement(idVar)->getInput());
 			else
+			{
+				LOG4CPLUS_ERROR(this->logger, "Cannot find inputValue for variable " + it->first );
 				return false;
+			}
 		}
 	}
 	return true;

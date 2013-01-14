@@ -1,5 +1,4 @@
 /*
- * Parser.cpp
  *
  *  Created on: Sep 20, 2012
  *      Author: igloo
@@ -286,7 +285,7 @@ bool XMLFPParser::loopKnowledgeChip(const xml_node& applicationRoot,
 		//process every single knowledge chip
 		if(MamdaniFuzzyObject* result = processKnowledgeChip(chips,engine)){
 			InputLinguisticVariable *temp = new InputLinguisticVariable(*(result->getOutputVar()));
-			if(!object->addInputVar(temp) && !object->setInput(temp->getName(),result)){
+			if(!object->addInputVar(temp) || !object->setInput(temp->getName(),result)){
 				LOG4CPLUS_ERROR(this->logger, "Error in adding the input nested variable for chip named: " << chips.first_child().first_child().value());
 				return false;
 			}
@@ -326,9 +325,8 @@ MamdaniFuzzyObject* XMLFPParser::processKnowledgeChip(
 
 				const LinguisticVariable *out = temp->getOutputVar();
 				InputLinguisticVariable * input = new InputLinguisticVariable(*out);
-				cout << input->getNumberOfSet()<<"\n";
 
-				if (!object_chip->addInputVar(input) && object_chip->setInput(out->getName(), temp)){ // add the input variable and refer it to other objects
+				if (!object_chip->addInputVar(input) || !object_chip->setInput(out->getName(), temp)){ // add the input variable and refer it to other objects
 					LOG4CPLUS_ERROR(this->logger, "Error in creating nested input var knowledge chip: " + consequent);
 					return NULL;
 				}
