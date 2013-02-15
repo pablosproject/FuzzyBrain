@@ -61,6 +61,9 @@ public:
 
 	void setAllDefuzzificator(Defuzzificator* defuzz);
 
+	//Test for the root object
+
+
 };
 
 #endif /* FUZZYENGINE_H_ */
