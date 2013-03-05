@@ -7,7 +7,6 @@
 
 #include "RulesContainer.h"
 
-log4cplus::Logger RulesContainer::logger = logging::getLogger("RulesContainer");
 
 RulesContainer::~RulesContainer() {
 	//free all the rule's memory
@@ -41,7 +40,7 @@ bool RulesContainer::createCache(const MappedPointersContainer <InputLinguisticV
 				values[idVar][j] = input.getElement(idVar)->membershipToASet(j,input.getElement(idVar)->getInput());
 			else
 			{
-				LOG4CPLUS_ERROR(this->logger, "Cannot find inputValue for variable " + it->first );
+				LERROR << "Cannot find inputValue for variable " << it->first ;
 				return false;
 			}
 		}

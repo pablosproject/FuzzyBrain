@@ -12,8 +12,7 @@
 class PolygonalShape {
 
 private:
-	//logger
-	static log4cplus::Logger logger;
+
 
 protected:
 

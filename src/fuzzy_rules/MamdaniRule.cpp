@@ -7,8 +7,6 @@
 
 #include "MamdaniRule.h"
 
-log4cplus::Logger MamdaniRule::logger = logging::getLogger(
-		"FuzzyRule.MamdaniRule");
 
 MamdaniRule::MamdaniRule(): FuzzyRule(), consequent_set(-1), consequent_negated(false){}
 

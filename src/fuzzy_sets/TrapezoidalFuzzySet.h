@@ -22,9 +22,6 @@ private:
 
 	bool checkConsistence();
 
-	//Logger
-	static log4cplus::Logger logger;
-
 public:
 
 	TrapezoidalFuzzySet();

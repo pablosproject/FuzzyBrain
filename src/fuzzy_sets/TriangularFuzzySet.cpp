@@ -7,7 +7,6 @@
 
 #include "TriangularFuzzySet.h"
 
-log4cplus::Logger TriangularFuzzySet::logger = logging::getLogger("FuzzySet.TriangularFuzzySet");
 
 
 TriangularFuzzySet::TriangularFuzzySet(): SimplePolygonalFuzzySet(""), initialized(false){}

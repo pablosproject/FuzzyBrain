@@ -7,8 +7,6 @@
 
 #include "TrapezoidalFuzzySet.h"
 
-log4cplus::Logger TrapezoidalFuzzySet::logger = logging::getLogger("FuzzySet.TrapezoidalFuzzySet");
-
 TrapezoidalFuzzySet::TrapezoidalFuzzySet():SimplePolygonalFuzzySet(""), initialized(false) {};
 TrapezoidalFuzzySet::TrapezoidalFuzzySet(const std::string& _name): SimplePolygonalFuzzySet(_name),initialized(false) {}
 TrapezoidalFuzzySet::TrapezoidalFuzzySet(const std::string& _name, float APoint, float BPoint, float CPoint, float DPoint): SimplePolygonalFuzzySet(_name){

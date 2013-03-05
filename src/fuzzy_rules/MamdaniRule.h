@@ -32,7 +32,6 @@ private:
 	int consequent_set;						/**ID of the consequent set*/
 	bool consequent_negated;				/**Negation of the consequent*/
 
-	static log4cplus::Logger logger;		// universal logger classs
 
 	float extractMembership(const std::list<Token>::const_iterator& and_it,
 			valueCache& cache) const;

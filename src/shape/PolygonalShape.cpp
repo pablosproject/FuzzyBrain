@@ -7,7 +7,6 @@
 
 #include "PolygonalShape.h"
 
-log4cplus::Logger PolygonalShape::logger = logging::getLogger("PolygonalShape");
 
 PolygonalShape::PolygonalShape(): scaled(false),scaledValue(0), correctlyInitialized(false){}
 
@@ -31,7 +30,7 @@ float PolygonalShape::getScale() const {
 bool PolygonalShape::scale(float value) {
 
 	if(value < 0 || value > 1){
-		LOG4CPLUS_ERROR(logger," Scaled value not correct.");
+		LERROR << " Scaled value not correct.";
 		return false;
 	}
 

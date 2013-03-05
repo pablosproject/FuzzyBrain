@@ -51,7 +51,6 @@ private:
 	RulesContainer rules;					//Container of the rule with a cache
 	RuleAnalyzer analyzer;					//FSM that analyze the rule and parse it.
 
-	static log4cplus::Logger logger;
 
 	int getExistentNestedVar(int _varID);
 	bool verifyInputVars();

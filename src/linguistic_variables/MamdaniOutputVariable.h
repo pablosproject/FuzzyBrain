@@ -24,8 +24,7 @@ private:
 
 	vector<int> modulatedSet;	//Save the IDs of modulated fuzzy set i.e. set using for the defuzzification.
 
-	//logger
-	//static log4cplus::Logger logger;
+
 
 public:
 

@@ -31,9 +31,6 @@ private:
 
 	float result;
 
-	//Logger
-	static log4cplus::Logger logger;
-
 public:
 
 	FuzzyEngine();

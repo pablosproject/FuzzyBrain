@@ -22,7 +22,6 @@ public:
 
 	virtual bool processInput(FuzzyEngine* engine);
 
-	static log4cplus::Logger logger;
 };
 
 #endif /* MANUALINPUTPROVIDER_H_ */

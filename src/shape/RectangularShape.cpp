@@ -7,8 +7,6 @@
 
 #include "RectangularShape.h"
 
-log4cplus::Logger RectangularShape::logger = logging::getLogger("RectangularShape");
-
 RectangularShape::RectangularShape(): A(0), B(0) {}
 
 RectangularShape::RectangularShape(float A, float B){
@@ -27,7 +25,7 @@ RectangularShape::~RectangularShape() {
 bool RectangularShape::setPoints(float APoint, float BPoint) {
 
 	if (APoint >= BPoint){
-		LOG4CPLUS_ERROR(logger,"The points are not correct.");
+		LERROR << "The points are not correct.";
 		return false;
 	}
 

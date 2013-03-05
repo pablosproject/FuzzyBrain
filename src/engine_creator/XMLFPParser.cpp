@@ -32,7 +32,6 @@
 	static const char* FUZZY_OBJECT_BEHAVIOUR_TAG = "FuzzyBehaviour";
 	static const char* RULE_VALUE_TAG = "LitteralValue";
 
-log4cplus::Logger XMLFPParser::logger = logging::getLogger("XMLFPParser");
 
 XMLFPParser::XMLFPParser() {}
 

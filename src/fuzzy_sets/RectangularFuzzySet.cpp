@@ -7,8 +7,6 @@
 
 #include "RectangularFuzzySet.h"
 
-log4cplus::Logger RectangularFuzzySet::logger = logging::getLogger("FuzzySet.RectangularFuzzySet");
-
 RectangularFuzzySet::RectangularFuzzySet(const std::string& _name): SimplePolygonalFuzzySet(_name),initialized(false){}
 
 RectangularFuzzySet::RectangularFuzzySet(): SimplePolygonalFuzzySet(""), initialized(false){}

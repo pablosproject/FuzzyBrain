@@ -129,9 +129,6 @@ private:
 
 	void validateSetName(std::string& name, bool isConsequent);
 
-	//logging
-	static log4cplus::Logger logger;
-
 
 public:
 

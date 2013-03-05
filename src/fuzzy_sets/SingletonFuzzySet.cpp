@@ -7,7 +7,6 @@
 
 #include "SingletonFuzzySet.h"
 
-log4cplus::Logger	SingletonFuzzySet::logger = logging::getLogger("FuzzySet.SingletonFuzzySet");
 
 SingletonFuzzySet::SingletonFuzzySet():FuzzySet(""),A(NAN),initialized(false) {}
 

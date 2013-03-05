@@ -137,11 +137,6 @@ private:
 	void uniformRuleSintax(string& rule);
 
 
-
-	//logger
-	static log4cplus::Logger logger;
-
-
 public:
 
 	XMLFPParser();

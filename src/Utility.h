@@ -7,9 +7,6 @@
 
 #ifndef UTILITY_H_
 #define UTILITY_H_
-#include <log4cplus/logger.h>
-#include <log4cplus/loggingmacros.h>
-#include <log4cplus/configurator.h>
 #include "lib/easylogging++.h"
 #include <iomanip>
 #include <vector>
@@ -37,13 +34,6 @@ namespace notNumber{
 	 bool checkNaN(float x);
 }
 
-namespace logging{
-
-using namespace log4cplus;
-
-	  Logger getLogger(const std::string& name);
-	  void configurateLogger();
-}
 
 namespace tokenizing{
 

@@ -7,8 +7,7 @@
 
 #include "MamdaniFuzzyObject.h"
 
-log4cplus::Logger MamdaniFuzzyObject::logger = logging::getLogger(
-		"MamdaniFuzzyObject");
+
 const std::string MamdaniFuzzyObject::NOT_INITIALIZED_STRING =
 		"Not initialized.";
 

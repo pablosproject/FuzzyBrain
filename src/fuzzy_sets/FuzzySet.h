@@ -17,7 +17,6 @@
 class FuzzySet {
 
 private:
-	static log4cplus::Logger logger_set;	//Not hinerited by child
 
 protected:
 

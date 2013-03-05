@@ -29,9 +29,7 @@ protected:
 	FuzzySet* getMutableSet(int id);
 
 
-	//logger
 
-	static log4cplus::Logger logger;
 
 public:
 

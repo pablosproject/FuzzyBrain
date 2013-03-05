@@ -7,7 +7,6 @@
 
 #include "RuleAnalyzer.h"
 
-log4cplus::Logger RuleAnalyzer::logger = logging::getLogger("RuleAnalyzer");
 
 const std::string RuleAnalyzer::IF_KEYWORD = "if";
 const std::string RuleAnalyzer::IS_KEYWORD = "is";

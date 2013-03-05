@@ -7,7 +7,6 @@
 
 #include "LinguisticVariable.h"
 
-log4cplus::Logger LinguisticVariable::logger = logging::getLogger("LinguisticVariable");
 
 LinguisticVariable::LinguisticVariable(const LinguisticVariable& toCopy): name(toCopy.name), min_range(toCopy.min_range), max_range(toCopy.max_range), sets_data(toCopy.sets_data), initialized(toCopy.initialized) {}
 

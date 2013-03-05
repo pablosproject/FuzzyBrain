@@ -21,9 +21,6 @@ private:
 
 	bool setPoints(float A, float B, float C, float D);
 
-	//logger for the object
-	static log4cplus::Logger logger;
-
 public:
 
 	TrapezoidalShape();

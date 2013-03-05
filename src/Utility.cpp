@@ -34,25 +34,6 @@ namespace notNumber{
 	}
 }
 
-namespace logging{
-
-static bool configured = false;
-
-using namespace log4cplus;
-
-Logger getLogger(const std::string& name){
-
-	if (!configured){
-		configurateLogger();
-	}
-	return Logger::getInstance(name);
-}
-void configurateLogger() {
-
-	PropertyConfigurator::doConfigure(LOG4CPLUS_STRING_TO_TSTRING("/Users/pablosproject/Documents/workspace/FuzzyBrain/logger_configuration.config"));
-}
-
-}
 
 bool tokenizing::nextToken(std::string& token,  std::istringstream& string) {
 	if(string >> token)

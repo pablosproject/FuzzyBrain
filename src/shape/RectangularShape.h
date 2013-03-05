@@ -19,9 +19,6 @@ private:
 
 	bool setPoints(float APoint, float BPoint);
 
-	//logger
-	static log4cplus::Logger logger;
-
 public:
 	RectangularShape();
 	RectangularShape(float A, float B);

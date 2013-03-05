@@ -7,7 +7,6 @@
 
 #include "TriangularShape.h"
 
-log4cplus::Logger TriangularShape::logger = logging::getLogger("TriangularFuzzySet");
 
 TriangularShape::TriangularShape(float A, float B, float C){
 	if(setPoints(A,B,C))
@@ -24,7 +23,7 @@ TriangularShape::~TriangularShape() {}
 bool TriangularShape::setPoints(float _A, float _B, float _C) {
 
 	if (_A > _B || _A >= _C || _B > _C ){ //Check that all the lements are growing on X axys
-		LOG4CPLUS_ERROR(this->logger," The points are not correct.");
+		LERROR <<" The points are not correct.";
 		return false;
 	}
 

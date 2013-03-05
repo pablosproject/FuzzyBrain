@@ -7,7 +7,6 @@
 
 #include "MamdaniOutputVariable.h"
 
-//log4cplus::Logger MamdaniOutputVariable::logger = logging::getLogger("MamdaniOutputVariable");
 
 MamdaniOutputVariable::~MamdaniOutputVariable() {
 	// TODO Auto-generated destructor stub

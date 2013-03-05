@@ -10,8 +10,6 @@
 #include "engine_creator/EngineCreator.h"
 #include "ErrorDefinition.h"
 
-log4cplus::Logger FuzzyEngine::logger = logging::getLogger("FuzzyEngine	");
-
 FuzzyEngine::FuzzyEngine() :
 		rootObject(NULL), creator(NULL), input(NULL), populated(false), result(
 				NAN) {

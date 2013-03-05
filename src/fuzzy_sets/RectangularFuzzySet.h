@@ -21,8 +21,6 @@ private:
 
 	bool checkConsistence();
 
-	//logger
-	static log4cplus::Logger logger;
 
 public:
 

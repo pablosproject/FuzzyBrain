@@ -22,9 +22,6 @@ private:
 	bool setPoints(float A, float B, float C);
 
 
-	//Logger
-	static log4cplus::Logger logger;
-
 public:
 
 	TriangularShape();

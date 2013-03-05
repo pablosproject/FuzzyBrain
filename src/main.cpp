@@ -33,13 +33,16 @@ int main(int argc, char* argv[]) {
 			float run_result = principalEngine.run();
 			if (run_result > 0){
 				cout << run_result;
+				_END_EASYLOGGINGPP
 				return 0;
 			}
 			else
+				_END_EASYLOGGINGPP
 				return run_result; //TODO: manage different cases
 		}
 		else
 		{
+			_END_EASYLOGGINGPP
 			return configuration_res;
 			//TODO: return the exit code and manage the log
 		}

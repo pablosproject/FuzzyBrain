@@ -7,7 +7,6 @@
 
 #include "ManualInputProvider.h"
 
-log4cplus::Logger ManualInputProvider::logger = logging::getLogger("ManualInputProvider");
 
 using namespace std;
 

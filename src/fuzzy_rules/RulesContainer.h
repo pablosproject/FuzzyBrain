@@ -28,9 +28,6 @@ private:
 	 */
 	bool createCache(const MappedPointersContainer <InputLinguisticVariable>& input);
 
-	//logger
-	static log4cplus::Logger logger;
-
 public:
 
 	~RulesContainer();

@@ -30,7 +30,6 @@ public:
 	virtual ~InputProvider();
 	virtual bool processInput(FuzzyEngine* engine) = 0;
 
-	static log4cplus::Logger logger;
 };
 
 

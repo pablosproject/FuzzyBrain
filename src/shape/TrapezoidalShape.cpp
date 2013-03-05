@@ -7,7 +7,6 @@
 
 #include "TrapezoidalShape.h"
 
-log4cplus::Logger TrapezoidalShape::logger = logging::getLogger("TrapezoidalShape");
 
 TrapezoidalShape::TrapezoidalShape():A(0), B(0), C(0), D(0){}
 
@@ -25,15 +24,15 @@ TrapezoidalShape::~TrapezoidalShape() {
 bool TrapezoidalShape::setPoints(float _A, float _B, float _C, float _D) {
 
 	if (_A > _B || _B > _C || _C > _D){
-		LOG4CPLUS_ERROR(this->logger,"Points are incorrect. Not growing on the x-axis");
+		LERROR << "Points are incorrect. Not growing on the x-axis";
 		return false;
 	}
     if (_B == _C){							 //it can't be a triangle
-		LOG4CPLUS_ERROR(this->logger,"Points are incorrect. Top points can't be equal.");
+		LERROR << "Points are incorrect. Top points can't be equal.";
     	return false;
     }
 	if (_A == _B && _C == _D){
-		LOG4CPLUS_ERROR(this->logger,"Points are incorrect. Can't be a rect.");
+		LERROR << "Points are incorrect. Can't be a rect.";
 		return false;								//it can't be a rect
 	}
 

@@ -8,7 +8,6 @@
 
 #include "FuzzySet.h"
 
-log4cplus::Logger FuzzySet::logger_set = logging::getLogger("FuzzySet");
 
 FuzzySet::FuzzySet(const std::string& _name){
 
