@@ -22,7 +22,7 @@ TrapezoidalFuzzySet::TrapezoidalFuzzySet(const std::string& _name, float APoint,
 bool TrapezoidalFuzzySet::setPoints(float APoint, float BPoint, float CPoint, float DPoint){
 
 	if (this->trapezoid.isScaled()){
-		LOG4CPLUS_ERROR(this->logger, this->getName() + "  Cannot set a point of a scaled trapezoid.");
+		LERROR << this->getName() << "  Cannot set a point of a scaled trapezoid.";
 		return false;
 	}
 
@@ -37,10 +37,10 @@ bool TrapezoidalFuzzySet::configureSet(const std::string& _name, float Apoint,
 		float BPoint, float Cpoint, float DPoint) {
 
 	if(_name == "")
-		LOG4CPLUS_WARN(this->logger,"Name cannot be an empty string. Possible inconsistences.");
+		LWARNING << "Name cannot be an empty string. Possible inconsistences.";
 
 	if (this->trapezoid.isScaled()){
-		LOG4CPLUS_ERROR(this->logger, this->getName() + "  Cannot configure a trapezoid.");
+		LERROR << this->getName() << "  Cannot configure a trapezoid.";
 		return false;
 	}
 
@@ -50,7 +50,7 @@ bool TrapezoidalFuzzySet::configureSet(const std::string& _name, float Apoint,
 		return true;
 	}
 	else
-		LOG4CPLUS_ERROR(this->logger,"Set cannot be configured. Points error");
+		LERROR << "Set cannot be configured. Points error";
 	return false;
 
 
@@ -63,7 +63,7 @@ TrapezoidalFuzzySet::~TrapezoidalFuzzySet() {
 float TrapezoidalFuzzySet::CalculateMembership(float point) const{
 
 	if (!initialized){
-		LOG4CPLUS_ERROR(this->logger, "Set is not initialized properly. Impossible calculate membership.");
+		LERROR << "Set is not initialized properly. Impossible calculate membership.";
 		return -1;
 	}
 
@@ -88,7 +88,7 @@ float TrapezoidalFuzzySet::getLowBoundary() const {
 void TrapezoidalFuzzySet::setName(const std::string& _name){
 
 	if(_name == "")
-		LOG4CPLUS_WARN(this->logger, "Name cannot be an empty string. Possible inconsistences.");
+		LWARNING << "Name cannot be an empty string. Possible inconsistences.";
 	this->name = _name;
 	this->initialized = checkConsistence();
 }
@@ -104,7 +104,7 @@ bool TrapezoidalFuzzySet::checkConsistence() {
 float TrapezoidalFuzzySet::getArea() const {
 
 	if (!initialized){
-		LOG4CPLUS_ERROR(logger, this->getName()+": cannot calculate the area of an uninitialized trapezoid.");
+		LERROR << this->getName() << ": cannot calculate the area of an uninitialized trapezoid.";
 		return -1;
 	}
 	return this->trapezoid.getArea();
@@ -115,14 +115,14 @@ bool TrapezoidalFuzzySet::mamdaniScale(float value) {
 	if (this -> initialized)
 		return this->trapezoid.scale(value);
 	else{
-		LOG4CPLUS_ERROR(logger, this->getName() + " Cannot scale a non initialized fuzzy set.");
+		LERROR << this->getName() << " Cannot scale a non initialized fuzzy set.";
 		return false;
 	}
 }
 
 float TrapezoidalFuzzySet::getCentroid() const {
 	if(!initialized){
-		LOG4CPLUS_ERROR(logger, this->getName()+": cannot calculate the centroid of an uninitialized trapezoid.");
+		LERROR << this->getName() << ": cannot calculate the centroid of an uninitialized trapezoid.";
 		return NAN;
 	}
 	else
@@ -131,7 +131,7 @@ float TrapezoidalFuzzySet::getCentroid() const {
 
 float TrapezoidalFuzzySet::getScale() const {
 	if(!initialized){
-		LOG4CPLUS_ERROR(logger, this->getName()+": cannot return the scale of an uninitialized trapezoid.");
+		LERROR << this->getName() <<": cannot return the scale of an uninitialized trapezoid.";
 		return -1;
 	}
 

@@ -13,7 +13,7 @@ log4cplus::Logger FuzzySet::logger_set = logging::getLogger("FuzzySet");
 FuzzySet::FuzzySet(const std::string& _name){
 
 	if (_name == "")
-		LOG4CPLUS_WARN(this->logger_set,"Name cannot be an empty string. Possible inconsistences.");
+		LWARNING << "Name cannot be an empty string. Possible inconsistences.";
 
 	this->name = _name;
 }

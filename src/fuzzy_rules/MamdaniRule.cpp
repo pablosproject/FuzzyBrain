@@ -16,7 +16,7 @@ MamdaniRule::MamdaniRule(): FuzzyRule(), consequent_set(-1), consequent_negated(
 MamdaniRule::MamdaniRule(const std::string& ruleString):FuzzyRule(ruleString), consequent_set(-1), consequent_negated(false){
 
 	if(ruleString == "")
-		LOG4CPLUS_WARN(this->logger, "Attention: the inserted string is empty. Possible problems in parsing the rule.");
+		LWARNING <<  "Attention: the inserted string is empty. Possible problems in parsing the rule.";
 }
 
 MamdaniRule::~MamdaniRule() {}
@@ -24,7 +24,7 @@ MamdaniRule::~MamdaniRule() {}
 bool MamdaniRule::addAntecedentToken(int _lingVar, int _set, bool _negated, logicalOperator _OP) {
 
 	if (_lingVar < 0 || _set < 0 ){
-		LOG4CPLUS_ERROR(this->logger, "Incorrect value of the linguistic variable or fuzzy set.");
+		LERROR << "Incorrect value of the linguistic variable or fuzzy set.";
 		return false;
 	}
 
@@ -53,7 +53,7 @@ bool MamdaniRule::addAntecedentToken(int _lingVar, int _set, bool _negated, logi
 		break;
 
 	default:
-		LOG4CPLUS_ERROR(this->logger,"Unexpected operator.");
+		LERROR <<"Unexpected operator.";
 		break;
 	}
 
@@ -63,7 +63,7 @@ bool MamdaniRule::addAntecedentToken(int _lingVar, int _set, bool _negated, logi
 bool MamdaniRule::addConsequent(const std::string& _lingVarName, int _set, bool _negated) {
 
 	if (_lingVarName == "" || _set < 0 ){
-		LOG4CPLUS_ERROR(this->logger, "Incorrect value of the linguistic variable or fuzzy set.");
+		LERROR << "Incorrect value of the linguistic variable or fuzzy set.";
 		return false;
 	}
 
@@ -139,7 +139,7 @@ float MamdaniRule::extractMembership(
 float MamdaniRule::evaluateAntecedent(valueCache& cache)  const{
 
 	if(!andOperator || !orOperator){
-		LOG4CPLUS_ERROR(this->logger, "And/or operator not set for rule");
+		LERROR << "And/or operator not set for rule";
 		return -1;
 	}
 
@@ -170,11 +170,11 @@ bool MamdaniRule::modulateConsequent(MamdaniOutputVariable* consequent,
 		float modulationValue) const {
 
 	if(modulationValue < 0 || modulationValue > 1){
-		LOG4CPLUS_ERROR(this->logger, "Error: cannot modulate with an invalid modulation value");
+		LERROR << "Error: cannot modulate with an invalid modulation value";
 		return false;
 	}
 	if(consequent->getName() != this->consequent_var_name){
-		LOG4CPLUS_ERROR(this->logger, "Error: output variable and consequent are not equal");
+		LERROR << "Error: output variable and consequent are not equal";
 		return false;
 	}
 

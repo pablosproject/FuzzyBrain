@@ -42,12 +42,12 @@ bool RuleAnalyzer::parseRule(MamdaniRule* rule) {
 	resetMachineState();
 	//remember to reset it before every operation
 	if (!this->objectInputPtr || !this->outputPtr){
-		LOG4CPLUS_ERROR(logger, "Rule parser not initialized properly.");
+		LERROR <<  "Rule parser not initialized properly.";
 		return false;
 	}
 
 	if(rule->getRuleDescription().empty()){
-		LOG4CPLUS_ERROR(logger, "Cannot parse an empty string.");
+		LERROR <<  "Cannot parse an empty string.";
 		return false;
 	}
 	istringstream iss(rule->getRuleDescription());
@@ -58,7 +58,7 @@ bool RuleAnalyzer::parseRule(MamdaniRule* rule) {
 		nextState(token, iss);
 
 		if (this->state == ERROR) {
-			LOG4CPLUS_ERROR(logger, "Error in parsing rule: "+ rule->getRuleDescription());
+			LERROR <<  "Error in parsing rule: "+ rule->getRuleDescription();
 			rule->resetRule();
 			return false;
 		}
@@ -77,7 +77,7 @@ bool RuleAnalyzer::parseRule(MamdaniRule* rule) {
 	if (this->state == SET_CONS_RECOGN_END)
 		return true; // if I reach the final state all correct
 	else{
-		LOG4CPLUS_ERROR(this->logger, "Error in parsing the rule: " + rule->getRuleDescription());
+		LERROR << "Error in parsing the rule: " << rule->getRuleDescription();
 		return false;
 	}
 
@@ -136,7 +136,7 @@ void RuleAnalyzer::nextState(std::string& input, istringstream& stream) {
 		 * some error at the end of the string.
 		 */
 		this->state =ERROR;
-		LOG4CPLUS_ERROR(logger, "unexpected end of the rule.");
+		LERROR <<  "unexpected end of the rule.";
 	}
 		break;
 	case (ERROR):
@@ -154,7 +154,7 @@ void RuleAnalyzer::recognizeIf(std::string& input) {
 		this->state = START_RULE ;
 	else{
 		this->state = ERROR;
-		LOG4CPLUS_ERROR(logger,"Expected If, but found other thing: " + input);
+		LERROR << "Expected If, but found other thing: " + input;
 	}
 }
 
@@ -167,16 +167,16 @@ void RuleAnalyzer::validateVariable(bool isConsequent, const std::string& inputV
 			this->temp_varName = "";
 		} else {
 			this->state = ERROR;
-			LOG4CPLUS_ERROR(logger,
-					"Input variable not recognized. Found: "+ inputVarName);
+			LERROR <<
+					"Input variable not recognized. Found: "+ inputVarName;
 		}
 	} else {
 		if (verifyOutputVar(inputVarName)) {
 			this->state = VAR_CONS_RECOGNIZED;
 		} else {
 			this->state = ERROR;
-			LOG4CPLUS_ERROR(logger,
-					"Output variable not recognized. Found: "+ inputVarName);
+			LERROR <<
+					"Output variable not recognized. Found: "+ inputVarName;
 		}
 	}
 }
@@ -202,7 +202,7 @@ void RuleAnalyzer::recognizeIs(std::string& input, bool isConsequent) {
 	}
 	else{
 		this->state = ERROR;
-		LOG4CPLUS_ERROR(logger, "Expected IS keyword, but found other :" + input);
+		LERROR <<  "Expected IS keyword, but found other :" + input;
 	}
 }
 
@@ -256,7 +256,7 @@ void RuleAnalyzer::validateSetName(std::string& name, bool isConsequent){
 			this->state = SET_RECOGNIZED;
 	} else{
 		this->state = ERROR;
-		LOG4CPLUS_ERROR(logger, "Set not recognized. Found: "+ name);
+		LERROR <<  "Set not recognized. Found: "+ name;
 	}
 }
 
@@ -273,7 +273,7 @@ void RuleAnalyzer::postSetRecognition(std::string& input){
 	}
 	else{
 		this->state = ERROR;
-		LOG4CPLUS_ERROR(logger, "unrecognized input.");
+		LERROR <<  "unrecognized input.";
 	}
 }
 
@@ -314,10 +314,6 @@ void RuleAnalyzer::printRule(MamdaniRule* rule) {
 		description += "not ";
 	description += this->outputPtr->getSet(rule->getConsequentSet())->getName();
 
-	if (!success)
-		LOG4CPLUS_TRACE(logger, "Error in print rule");
-	else
-		LOG4CPLUS_TRACE(logger, description);
 }
 
 void RuleAnalyzer::resetTempVariables(){

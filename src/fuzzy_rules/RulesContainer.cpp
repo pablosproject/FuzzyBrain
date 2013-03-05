@@ -65,7 +65,7 @@ void RulesContainer::printCache() const{
 bool RulesContainer::evaluateRules(const MappedPointersContainer <InputLinguisticVariable>& input, MamdaniOutputVariable *out){
 
 	if(!createCache(input)){
-		LOG4CPLUS_ERROR(this->logger, "Error in creating the cache of input value.");
+		LERROR << "Error in creating the cache of input value.";
 		return false;
 	}
 

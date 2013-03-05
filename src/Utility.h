@@ -10,13 +10,12 @@
 #include <log4cplus/logger.h>
 #include <log4cplus/loggingmacros.h>
 #include <log4cplus/configurator.h>
+#include "lib/easylogging++.h"
 #include <iomanip>
 #include <vector>
 #include <sstream>
 #include <math.h>
 #include <iostream>
-
-
 
 
 typedef std::vector<std::vector<float> > valueCache;

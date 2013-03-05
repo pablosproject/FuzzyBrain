@@ -49,7 +49,7 @@ bool XMLFPParser::Parse(const string& filePath, FuzzyEngine* engine){
 
 	xml_parse_result result = doc.load_file(file);
 	if (!result){
-		LOG4CPLUS_ERROR(this->logger, "Error in parsing the xml file. File inexistent or invalid: " << file);
+		LERROR << "Error in parsing the xml file. File inexistent or invalid: " << file;
 		return false;
 	}
 
@@ -67,7 +67,7 @@ bool XMLFPParser::Parse(const string& filePath, FuzzyEngine* engine){
 		string consequent = consequentNameChip(application);
 		uniformTokenName(consequent);
 		if (!loopLinguisticVariables(application, root, consequent)){
-			LOG4CPLUS_ERROR(this->logger, "Error in parse linguistic variables: " + consequent);
+			LERROR << "Error in parse linguistic variables: " << consequent;
 			return false;
 		}
 
@@ -75,7 +75,7 @@ bool XMLFPParser::Parse(const string& filePath, FuzzyEngine* engine){
 		loopKnowledgeChip(application,root, engine);
 
 		if (!loopRules(application.child(RULES_TAG),root)){
-			LOG4CPLUS_ERROR(this->logger, "Error in parse rules: " + consequent);
+			LERROR << "Error in parse rules: " << consequent;
 			return false;
 		}
 		engine->addRootFuzzyObject(root);
@@ -99,7 +99,7 @@ bool XMLFPParser::parseFuzzyObject(const xml_node& object_root,
 	xml_node variables = object_root.child(LINGUISTIC_VARIABLES_TAG);
 
 	if(!loopLinguisticVariables(variables, object, outputName)){
-		LOG4CPLUS_ERROR(this->logger, "Error parsing the variables, object: " + outputName);
+		LERROR << "Error parsing the variables, object: " << outputName;
 	}
 
 	/*PARSE OF THE RULES */
@@ -107,7 +107,7 @@ bool XMLFPParser::parseFuzzyObject(const xml_node& object_root,
 	xml_node rules = object_root.child(FUZZY_OBJECT_BEHAVIOUR_TAG).child(RULES_TAG);
 
 	if(!loopRules(rules, object)){
-		LOG4CPLUS_ERROR(this->logger, "Error parsing the rules, object: " + outputName);
+		LERROR << "Error parsing the rules, object: " << outputName;
 		return false;
 	}
 
@@ -119,7 +119,7 @@ bool XMLFPParser::loopLinguisticVariables(const xml_node& node,
 
 	for (xml_node lang_var_root = node.child(LINGUISTIC_VARIABLE_TAG) ; lang_var_root ; lang_var_root = lang_var_root.next_sibling(LINGUISTIC_VARIABLE_TAG)){
 			if(!parseLinguisticVariable(lang_var_root, object, outputName)){
-				LOG4CPLUS_ERROR(this->logger, "Error parsing the object " +  outputName);
+				LERROR << "Error parsing the object " +  outputName;
 				return false;
 			}
 		}
@@ -144,7 +144,7 @@ bool XMLFPParser::processInputVariable(const xml_node& var_root,
 																	parsing::extractFloat(var_root.child(LINGUISTIC_VARIABLE_LOW_BOUND_TAG).child(LINGUISTIC_VARIABLE_VALUE_TAG).first_child().value()),
 																	parsing::extractFloat(var_root.child(LINGUISTIC_VARIABLE_UP_BOUND_TAG).child(LINGUISTIC_VARIABLE_VALUE_TAG).first_child().value()));
 	if(!loopFuzzySets(var_root.child(LINGUISTIC_VARIABLE_SETS_TAG),variable)){
-		LOG4CPLUS_ERROR(this->logger, "Error in parsing the fuzzy set for the variable : " + std::string(var_root.child(LINGUISTIC_VARIABLE_ID_TAG).first_child().value()));
+		LERROR << "Error in parsing the fuzzy set for the variable : " << std::string(var_root.child(LINGUISTIC_VARIABLE_ID_TAG).first_child().value());
 		return false;
 	}
 
@@ -159,7 +159,7 @@ bool XMLFPParser::processOutputVariable(const xml_node& var_root,
 																	parsing::extractFloat(var_root.child(LINGUISTIC_VARIABLE_UP_BOUND_TAG).child(LINGUISTIC_VARIABLE_VALUE_TAG).first_child().value()));
 
 	if(!loopFuzzySets(var_root.child(LINGUISTIC_VARIABLE_SETS_TAG),variable)){
-		LOG4CPLUS_ERROR(this->logger, "Error in parsing the fuzzy set for the variable : " + std::string(var_root.child(LINGUISTIC_VARIABLE_ID_TAG).first_child().value()));
+		LERROR << "Error in parsing the fuzzy set for the variable : " << std::string(var_root.child(LINGUISTIC_VARIABLE_ID_TAG).first_child().value());
 		return false;
 	}
 
@@ -176,11 +176,11 @@ bool XMLFPParser::parseFuzzySet (const xml_node& node, LinguisticVariable* varia
 	float C = parsing::extractFloat(magnitude.child(LINGUISTIC_VARIABLE_SET_POINT_C_TAG).first_child().value());
 	float D =parsing::extractFloat(magnitude.child(LINGUISTIC_VARIABLE_SET_POINT_D_TAG).first_child().value());
 
-	LOG4CPLUS_DEBUG(this->logger, "Fuzzy Set:"<< node.child(LINGUISTIC_VARIABLE_SET_ID_TAG).first_child().value());
-	LOG4CPLUS_DEBUG(this->logger, " A "<< magnitude.child(LINGUISTIC_VARIABLE_SET_POINT_A_TAG).first_child().value());
-	LOG4CPLUS_DEBUG(this->logger, " B "<< magnitude.child(LINGUISTIC_VARIABLE_SET_POINT_B_TAG).first_child().value());
-	LOG4CPLUS_DEBUG(this->logger, " C "<< magnitude.child(LINGUISTIC_VARIABLE_SET_POINT_C_TAG).first_child().value());
-	LOG4CPLUS_DEBUG(this->logger, " D "<< magnitude.child(LINGUISTIC_VARIABLE_SET_POINT_D_TAG).first_child().value());
+	LDEBUG << "Fuzzy Set:"<< node.child(LINGUISTIC_VARIABLE_SET_ID_TAG).first_child().value();
+	LDEBUG << " A "<< magnitude.child(LINGUISTIC_VARIABLE_SET_POINT_A_TAG).first_child().value();
+	LDEBUG << " B "<< magnitude.child(LINGUISTIC_VARIABLE_SET_POINT_B_TAG).first_child().value();
+	LDEBUG << " C "<< magnitude.child(LINGUISTIC_VARIABLE_SET_POINT_C_TAG).first_child().value();
+	LDEBUG << " D "<< magnitude.child(LINGUISTIC_VARIABLE_SET_POINT_D_TAG).first_child().value();
 
 	correctPoint(A,variable);
 	correctPoint(B,variable);
@@ -211,7 +211,7 @@ bool XMLFPParser::loopFuzzySets(const xml_node& sets_root,
 	//cerco tutti i set della variabile linguistica
 	for (xml_node fuzzy_set = sets_root.child(LINGUISTIC_VARIABLE_SET_TAG); fuzzy_set;	fuzzy_set = fuzzy_set.next_sibling(LINGUISTIC_VARIABLE_SET_TAG)) {
 		if (!parseFuzzySet(fuzzy_set, variable)) {
-			LOG4CPLUS_ERROR(this->logger, " Error during the parsing of the variable " + variable->getName());
+			LERROR << " Error during the parsing of the variable " << variable->getName();
 			return false;
 		}
 	}
@@ -224,7 +224,7 @@ bool XMLFPParser::loopRules(const xml_node& rules_root,
 
 	for (xml_node rule = rules_root.child(RULE_TAG); rule; rule = rule.next_sibling(RULE_TAG)){
 		if(!parseRule(rule, object)){
-			LOG4CPLUS_ERROR(this->logger, "Error during parse rule for object: " + object->getName());
+			LERROR << "Error during parse rule for object: " << object->getName();
 			return false;
 		}
 	}
@@ -280,20 +280,20 @@ bool XMLFPParser::loopKnowledgeChip(const xml_node& applicationRoot,
 
 	//Loop on all the knowledge chips
 	for(xml_node chips = applicationRoot.child(KNOWLEDGE_CHIP_TAG); chips; chips = chips.next_sibling(KNOWLEDGE_CHIP_TAG)){
-		LOG4CPLUS_DEBUG(this->logger, "Chip Name: " << chips.first_child().first_child().value());
+		LDEBUG << "Chip Name: " << chips.first_child().first_child().value();
 
 		//process every single knowledge chip
 		if(MamdaniFuzzyObject* result = processKnowledgeChip(chips,engine)){
 			InputLinguisticVariable *temp = new InputLinguisticVariable(*(result->getOutputVar()));
 			if(!object->addInputVar(temp) || !object->setInput(temp->getName(),result)){
-				LOG4CPLUS_ERROR(this->logger, "Error in adding the input nested variable for chip named: " << chips.first_child().first_child().value());
+				LERROR << "Error in adding the input nested variable for chip named: " << chips.first_child().first_child().value();
 				return false;
 			}
 			else
 				engine->addFuzzyObject(result);
 		}
 		else{
-			LOG4CPLUS_ERROR(this->logger, "Error in processing the chip named: " << chips.first_child().first_child().value());
+			LERROR << "Error in processing the chip named: " << chips.first_child().first_child().value();
 			return false;
 		}
 	}
@@ -311,7 +311,7 @@ MamdaniFuzzyObject* XMLFPParser::processKnowledgeChip(
 
 	//Search for linguistic variables of the fuzzy set
 	if(!loopLinguisticVariables(chipRoot,object_chip,consequent)){
-		LOG4CPLUS_ERROR(this->logger, "Error in processing knowledge chip's"+ consequent +" linguistic variables.");
+		LERROR << "Error in processing knowledge chip's" << consequent << " linguistic variables.";
 		return NULL;
 	}
 
@@ -327,12 +327,12 @@ MamdaniFuzzyObject* XMLFPParser::processKnowledgeChip(
 				InputLinguisticVariable * input = new InputLinguisticVariable(*out);
 
 				if (!object_chip->addInputVar(input) || !object_chip->setInput(out->getName(), temp)){ // add the input variable and refer it to other objects
-					LOG4CPLUS_ERROR(this->logger, "Error in creating nested input var knowledge chip: " + consequent);
+					LERROR << "Error in creating nested input var knowledge chip: " << consequent;
 					return NULL;
 				}
 			}
 			else{
-				LOG4CPLUS_ERROR(this->logger, "Error during the parsing of the nested fuzzy object of the knowledge chip: " + consequent);
+				LERROR << "Error during the parsing of the nested fuzzy object of the knowledge chip: " << consequent;
 				return NULL;
 			}
 		}
@@ -340,7 +340,7 @@ MamdaniFuzzyObject* XMLFPParser::processKnowledgeChip(
 
 	//Search for rules for the external knowledge chip
 	if(!loopRules(chipRoot.child(RULES_TAG),object_chip)){
-		LOG4CPLUS_ERROR(this->logger, "Error in processing knowledge chip's"+ consequent +"rules.");
+		LERROR << "Error in processing knowledge chip's" << consequent  << "rules.";
 		return NULL;
 	}
 

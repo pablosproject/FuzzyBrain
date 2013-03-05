@@ -29,14 +29,14 @@ MamdaniFuzzyObject::MamdaniFuzzyObject(AndOperator* _and, OrOperator* _or,
 bool MamdaniFuzzyObject::addInputVar( InputLinguisticVariable* variable) {
 
 	if (!variable->checkConsistence()) {	//Inconsistent variable
-		LOG4CPLUS_ERROR(logger,
-				this->getName()+" Error: the variable passed is not consistent.");
+		LERROR <<
+				this->getName() << " Error: the variable passed is not consistent.";
 		return false;
 	}
 
 	else if (this->inputVars.hasElement(variable->getName())) {	//Duplicated variable
-		LOG4CPLUS_ERROR(logger,
-				this->getName()+" Error: an input variable with these name already exist.");
+		LERROR <<
+				this->getName() << " Error: an input variable with these name already exist.";
 		return false;
 	}
 
@@ -63,7 +63,7 @@ bool MamdaniFuzzyObject::addRule(MamdaniRule* rule) {
 		this->rules.addRule(rule);
 		return true;
 	} else {
-		LOG4CPLUS_ERROR(logger, "Error in parsing the rule.");
+		LERROR << "Error in parsing the rule.";
 		return false;
 	}
 }
@@ -79,7 +79,7 @@ float MamdaniFuzzyObject::getOutput() {
 
 	if(!verifyInputVars())
 	{
-		LOG4CPLUS_ERROR(this->logger, this->getName() + ": Error in obtaining the values of nested input  variable. Inference not valid.");
+		LERROR << this->getName() << ": Error in obtaining the values of nested input  variable. Inference not valid.";
 		return NAN;
 	}
 	this->outputVar->resetVariableModulation();
@@ -88,7 +88,7 @@ float MamdaniFuzzyObject::getOutput() {
 	float defuzif = this->defuzzificator->defuzzify(this->outputVar);
 
 	if(notNumber::checkNaN(defuzif))
-		LOG4CPLUS_ERROR(this->logger,this->getName() +": Error in defuzzifying the output. Check the setup of the object.");
+		LERROR <<this->getName() << ": Error in defuzzifying the output. Check the setup of the object.";
 
 	return defuzif;
 }
@@ -104,8 +104,8 @@ bool MamdaniFuzzyObject::setInput(const std::string& varName,
 	if (id >= 0)
 		return this->inputVars.getElement(id)->setInput(input_value);
 	else {
-		LOG4CPLUS_ERROR(logger,
-				this->getName()+": The variable "+varName+" specified does not exist in this fuzzy object.");
+		LERROR <<
+				this->getName() << ": The variable " << varName+" specified does not exist in this fuzzy object.";
 		return false;
 	}
 }
@@ -114,8 +114,8 @@ bool MamdaniFuzzyObject::setInput(const std::string& varName,
 		FuzzyObject* object) {
 
 	if (object == this) {
-		LOG4CPLUS_ERROR(logger,
-				this->getName()+": A fuzzy object cannot point an input to itself.");
+		LERROR <<
+				this->getName() << ": A fuzzy object cannot point an input to itself.";
 		return false;
 	}
 
@@ -129,8 +129,8 @@ bool MamdaniFuzzyObject::setInput(const std::string& varName,
 			this->nestedVariables.push_back(NestedVar(object, id));
 		return true;
 	} else {
-		LOG4CPLUS_ERROR(logger,
-				this->getName()+": The variable "+varName+" specified does not exist in this fuzzy object.");
+		LERROR <<
+				this->getName() << ": The variable " << varName << " specified does not exist in this fuzzy object.";
 		return false;
 	}
 }
@@ -142,8 +142,8 @@ float MamdaniFuzzyObject::getInputValue(const std::string& varName) const{
 	if (id >= 0)
 		return this->inputVars.getElement(id)->getInput();
 	else {
-		LOG4CPLUS_ERROR(logger,
-				this->getName()+": The variable "+varName+" specified does not exist in this fuzzy object.");
+		LERROR <<
+				this->getName() <<": The variable " << varName << " specified does not exist in this fuzzy object.";
 		return NAN;
 	}
 }
@@ -152,7 +152,6 @@ int MamdaniFuzzyObject::getExistentNestedVar(int _varID) {
 
 	for (unsigned i = 0; i < this->nestedVariables.size(); i++) {
 		if (this->nestedVariables[i].varID == _varID) {
-			LOG4CPLUS_TRACE(logger, "Substitution of an existent nested var");
 			return i;
 		}
 	}
@@ -181,12 +180,12 @@ bool MamdaniFuzzyObject::verifyInputVars() {
 		float result_obj= nestedVariables[i].nestedVar->getOutput();
 		if (!notNumber::checkNaN(result_obj)){
 			if(!this->inputVars.getElement(nestedVariables[i].varID)->setInput(result_obj)){
-				LOG4CPLUS_ERROR(this->logger, this->getName()+": the input obtained for the variable "+ nestedVariables[i].nestedVar->getName() +"is out of range");
+				LERROR << this->getName() << ": the input obtained for the variable " << nestedVariables[i].nestedVar->getName() << "is out of range";
 				return false;
 			}
 		}
 		else{
-			LOG4CPLUS_ERROR(this->logger, this->getName()+ ": error in evaluating the nested variables " + nestedVariables[i].nestedVar->getName());
+			LERROR << this->getName() << ": error in evaluating the nested variables " << nestedVariables[i].nestedVar->getName();
 			return false;
 		}
 	}

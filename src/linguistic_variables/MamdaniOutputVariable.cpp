@@ -21,7 +21,7 @@ bool MamdaniOutputVariable::modulateOutputSet(int setID,
 		float modulationValue) {
 
 	if(!hasSetID(setID)){
-		LOG4CPLUS_ERROR(this->logger, this->name + ": set does not exists in output variable.");
+		LERROR << this->name << ": set does not exists in output variable.";
 		return false;
 	}
 

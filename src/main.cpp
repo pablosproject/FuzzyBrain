@@ -10,11 +10,15 @@
 #include "lib/getopt_pp.h"
 #include "FuzzyEngine.h"
 #include "Configurator.h"
+#include "lib/easylogging++.h"
+
+_INITIALIZE_EASYLOGGINGPP
 
 int main(int argc, char* argv[]) {
 
 	using namespace GetOpt;
 	GetOpt_pp ops(argc, argv);
+
 
 	//Check if the use want help
 	if (!Configurator::checkHelp(ops)) {
@@ -40,5 +44,6 @@ int main(int argc, char* argv[]) {
 			//TODO: return the exit code and manage the log
 		}
 	}
+
 }
 

@@ -28,7 +28,7 @@ bool SingletonFuzzySet::setPoint(float APoint){
 float SingletonFuzzySet::CalculateMembership (float point) const{
 
 	if (!initialized){
-		LOG4CPLUS_ERROR(this->logger, "Set is not initialized properly. Impossible calculate membership.");
+		LERROR << "Set is not initialized properly. Impossible calculate membership.";
 		return -1;
 	}
 	if (point == this->A) return 1;
@@ -57,7 +57,7 @@ float SingletonFuzzySet::getLowBoundary() const {
 void SingletonFuzzySet::setName(const std::string& _name){
 
 	if(_name == "")
-		LOG4CPLUS_WARN(this->logger, "Name cannot be an empty string. Possible inconsistences.");
+		LWARNING << "Name cannot be an empty string. Possible inconsistences.";
 	this->name = _name;
 	this->initialized = checkConsistence();
 }
@@ -66,7 +66,7 @@ void SingletonFuzzySet::setName(const std::string& _name){
 bool SingletonFuzzySet::configureSet(std::string& _name, float Apoint) {
 
 	if (_name == "")
-		LOG4CPLUS_WARN(this->logger, "Name cannot be an empty string. Possible inconsistences.");
+		LWARNING << "Name cannot be an empty string. Possible inconsistences.";
 
 	if (setPoint(Apoint)){
 			this->name = _name;
@@ -74,7 +74,7 @@ bool SingletonFuzzySet::configureSet(std::string& _name, float Apoint) {
 			return true;
 		}
 	else
-		LOG4CPLUS_ERROR(this->logger,"Set cannot be configured. Point error");
+		LERROR << "Set cannot be configured. Point error";
 	return false;
 }
 
@@ -86,7 +86,7 @@ bool SingletonFuzzySet::checkConsistence(){
 }
 
 bool SingletonFuzzySet::mamdaniScale(float value) {
-	LOG4CPLUS_ERROR(this->logger, "Cannot scale a singleton fuzzy set. It can't be in a consequent.");
+	LERROR << "Cannot scale a singleton fuzzy set. It can't be in a consequent.";
 	return false;
 }
 

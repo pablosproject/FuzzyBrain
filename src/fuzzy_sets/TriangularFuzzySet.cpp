@@ -25,7 +25,7 @@ TriangularFuzzySet::TriangularFuzzySet(const std::string& _name): SimplePolygona
 bool TriangularFuzzySet::setPoints(float APoint , float BPoint , float CPoint) {
 
 		if (this->triangle.isScaled()){
-			LOG4CPLUS_ERROR(this->logger, this->getName() + "  Cannot set point of a scaled triangle.");
+			LERROR << this->getName() << "  Cannot set point of a scaled triangle.";
 			return false;
 		}
 
@@ -41,10 +41,10 @@ bool TriangularFuzzySet::configureSet(const std::string& _name, float Apoint,
 		float BPoint, float Cpoint) {
 
 	if ( _name == "")
-		LOG4CPLUS_WARN(this->logger, this->name + " Name cannot be an empty string. Possible inconsistences.");
+		LWARNING << this->name << " Name cannot be an empty string. Possible inconsistences.";
 
 	if (this->triangle.isScaled()){
-		LOG4CPLUS_ERROR(this->logger, this->getName() + "  Cannot configure a scaled triangle.");
+		LERROR << this->getName() << "  Cannot configure a scaled triangle.";
 		return false;
 	}
 
@@ -54,7 +54,7 @@ bool TriangularFuzzySet::configureSet(const std::string& _name, float Apoint,
 		return true;
 	}
 	else
-		LOG4CPLUS_ERROR(this->logger, this->name + " Set cannot be configured. Points error");
+		LERROR << this->name << " Set cannot be configured. Points error";
 	return false;
 
 }
@@ -62,7 +62,7 @@ bool TriangularFuzzySet::configureSet(const std::string& _name, float Apoint,
 float TriangularFuzzySet::CalculateMembership(float point) const{
 
 	if (!this->initialized){
-		LOG4CPLUS_ERROR(this->logger, this->name +" Set is not initialized properly. Impossible calculate membership.");
+		LERROR << this->name << " Set is not initialized properly. Impossible calculate membership.";
 		return -1;
 	}
 
@@ -91,7 +91,7 @@ float TriangularFuzzySet::getUpBoundary() const {
 void TriangularFuzzySet::setName(const std::string& _name){
 
 	if(_name == "")
-		LOG4CPLUS_WARN(this->logger, this->name + "Name cannot be an empty string. Possible inconsistences.");
+		LWARNING << this->name << "Name cannot be an empty string. Possible inconsistences.";
 	this->name = _name;
 	this->initialized = checkConsistence();
 }
@@ -108,14 +108,14 @@ bool TriangularFuzzySet::mamdaniScale(float value) {
 	if (this -> initialized)
 		return this->triangle.scale(value);
 	else{
-		LOG4CPLUS_ERROR(logger, this->getName() + " Cannot scale a non initialized fuzzy set.");
+		LERROR <<  this->getName() << " Cannot scale a non initialized fuzzy set.";
 		return false;
 	}
 }
 
 float TriangularFuzzySet::getArea() const {
 	if (!initialized){
-		LOG4CPLUS_ERROR(logger, this->getName()+": cannot calculate the area of an uninitialized triangle.");
+		LERROR <<  this->getName() << ": cannot calculate the area of an uninitialized triangle.";
 		return -1;
 	}
 	else
@@ -124,7 +124,7 @@ float TriangularFuzzySet::getArea() const {
 
 float TriangularFuzzySet::getCentroid() const {
 	if(!initialized){
-		LOG4CPLUS_ERROR(logger, this->getName()+": cannot calculate the centroid of an uninitialized triangle.");
+		LERROR <<  this->getName() << ": cannot calculate the centroid of an uninitialized triangle.";
 		return NAN;
 	}
 	else
@@ -133,7 +133,7 @@ float TriangularFuzzySet::getCentroid() const {
 
 float TriangularFuzzySet::getScale() const {
 	if(!initialized){
-		LOG4CPLUS_ERROR(logger, this->getName()+": cannot return the scale of an uninitialized triangle.");
+		LERROR <<  this->getName() << ": cannot return the scale of an uninitialized triangle.";
 		return -1;
 	}
 	return this->triangle.getScale();

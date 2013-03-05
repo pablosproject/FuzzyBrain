@@ -14,7 +14,7 @@ LinguisticVariable::LinguisticVariable(const LinguisticVariable& toCopy): name(t
 LinguisticVariable::LinguisticVariable(const std::string& _name,
 		float _min_range, float _max_range): name(_name){
 	if(_min_range > _max_range){
-		LOG4CPLUS_ERROR(this->logger, this->getName()+": range not correct in the linguistic variable.");
+		LERROR << this->getName() << ": range not correct in the linguistic variable.";
 		this->min_range = NAN;
 		this->max_range = NAN;
 		this->initialized = false;
@@ -43,12 +43,12 @@ const float LinguisticVariable::membershipToASet(int set_ID,
 		return -1;
 
 	if(!sets_data.hasID(set_ID)){
-		LOG4CPLUS_WARN(logger, "The set which you request membership does not exists in this linguistic variable.");
+		LWARNING << "The set which you request membership does not exists in this linguistic variable.";
 		return -1;
 	}
 
 	if (inputValue < this->min_range || inputValue >max_range){
-		LOG4CPLUS_ERROR(logger, "The input for these variable is out of range.");
+		LERROR << "The input for these variable is out of range.";
 		return -1;
 	}
 
@@ -64,18 +64,18 @@ bool LinguisticVariable::addSet(FuzzySet* setToAdd) {
 	float set_max = setToAdd->getUpBoundary();
 
 	if(set_min < this->min_range || set_max > this->max_range){
-		LOG4CPLUS_ERROR(logger, "The set is out of linguistic variable boundary. Set not added");
+		LERROR << "The set is out of linguistic variable boundary. Set not added";
 		return false;
 	}
 
 	if(sets_data.hasElement(setToAdd->getName())){
-		LOG4CPLUS_ERROR(logger, "A set with given name already exists. Linguistic variable does not allow duplication.");
+		LERROR << "A set with given name already exists. Linguistic variable does not allow duplication.";
 		return false;
 	}
 
 	bool insertion = sets_data.insert(setToAdd->getName(), setToAdd);
 	if(!insertion){
-		LOG4CPLUS_ERROR(logger, "Could not add set the linguistic variable. Unknow error.");
+		LERROR << "Could not add set the linguistic variable. Unknow error.";
 		return false;
 	}
 
@@ -119,12 +119,12 @@ bool LinguisticVariable::checkConsistence() const{
 	bool result = true;
 
 	if(this->name == ""){
-		LOG4CPLUS_WARN(logger, "Warning, exist a linguistic variable with no name, revision needed.");
+		LWARNING << "Warning, exist a linguistic variable with no name, revision needed.";
 		result = false;
 	}
 
 	if(notNumber::checkNaN(this->max_range) || notNumber::checkNaN(this->min_range)){
-		LOG4CPLUS_ERROR(logger, "Error: variable "+ this->name + "have the minimum and maximum range not correct.");
+		LERROR << "Error: variable " << this->name + "have the minimum and maximum range not correct.";
 		result = false;
 	}
 

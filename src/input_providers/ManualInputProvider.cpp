@@ -39,19 +39,19 @@ bool ManualInputProvider::processInput(FuzzyEngine* engine) {
 
 			//Control over parsing results
 			if(obj=="" || var =="" || notNumber::checkNaN(value)){
-				LOG4CPLUS_ERROR(this->logger, "Error during parsing the input: " + entry);
+				LERROR <<"Error during parsing the input: " << entry;
 				return false;
 			}
 			else{
 				if (!engine->setinput(obj,var,value)){
-					LOG4CPLUS_ERROR(this->logger, "Error during parsing the input, could not add: "+ entry);
+					LERROR <<"Error during parsing the input, could not add: " << entry;
 					return false;
 				}
 			}
 		}
 	}
 	else{
-		LOG4CPLUS_ERROR(this->logger, "Input inexistent.");
+		LERROR <<"Input inexistent.";
 		return false;
 	}
 

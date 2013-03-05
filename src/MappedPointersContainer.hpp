@@ -10,7 +10,6 @@
 
 #include <vector>
 #include <map>
-
 #include "Utility.h"
 
 using namespace std;
@@ -28,8 +27,6 @@ private:
 	map<string, int> lookup;
 	int ID;
 
-	//logger
-	static log4cplus::Logger logger;
 
 public:
 
@@ -109,7 +106,6 @@ public:
 
 };
 
-template <class X> log4cplus::Logger MappedPointersContainer<X>::logger = logging::getLogger("MappedContainer");
 
 template<class X>
 MappedPointersContainer<X>::MappedPointersContainer():ID(0){}
@@ -135,17 +131,17 @@ bool MappedPointersContainer<X>::insert(const string& name,	X* object) {
 
 
 	if (name == ""){
-		LOG4CPLUS_ERROR(logger, "Cannot insert an element with empty name");
+		LERROR << "Cannot insert an element with empty name" ;
 		return false;
 	}
 
 	if(lookup.insert(pair<string, int>(name,ID)).second == false){
-		LOG4CPLUS_WARN(logger, "The element already esxist in the container");
+		LWARNING << "The element already esxist in the container" ;
 		return false;
 	}
 
 	if (object == NULL){
-		LOG4CPLUS_ERROR(logger, "Cannot insert an empty pointer.");
+		LERROR << "Cannot insert an empty pointer." ;
 		return false;
 	}
 	elements.push_back(object);
@@ -159,7 +155,7 @@ template<class X>
 X* MappedPointersContainer<X>::getElement(const string& name) const {
 
 	if (name == ""){
-		LOG4CPLUS_ERROR(logger, "Could not find an element if the name is empty.");
+		LERROR << "Could not find an element if the name is empty." ;
 		return NULL;
 	}
 
@@ -167,7 +163,7 @@ X* MappedPointersContainer<X>::getElement(const string& name) const {
 	it = lookup.find(name);
 
 	if(it == lookup.end()){
-		LOG4CPLUS_WARN(logger, "The element to remove does not exists in the container");
+		LWARNING << "The element to remove does not exists in the container" ;
 		return false;
 	}
 
@@ -178,7 +174,7 @@ template<class X>
 const bool MappedPointersContainer<X>::hasElement(const string& name) const {
 
 	if (name == ""){
-		LOG4CPLUS_ERROR(logger, "Could not find an element if the name is empty.");
+		LERROR << "Could not find an element if the name is empty." ;
 		return false;
 	}
 
@@ -194,7 +190,7 @@ template<class X>
 const int MappedPointersContainer<X>::getID(const string& name) const {
 
 	if (name == ""){
-		LOG4CPLUS_ERROR(logger, "Could not find an element if the name is empty.");
+		LERROR << "Could not find an element if the name is empty." ;
 		return -5;
 	}
 

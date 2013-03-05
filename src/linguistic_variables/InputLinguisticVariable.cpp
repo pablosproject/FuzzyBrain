@@ -16,7 +16,7 @@ InputLinguisticVariable::InputLinguisticVariable(const std::string& _name,
 		if(input <= this->max_range && input >= this->min_range)
 			this->input = input;
 		else{
-			LOG4CPLUS_ERROR(this->logger, this->getName() + ": Cannot set input for a linguistic variable. Input out of range.");
+			LERROR << this->getName() << ": Cannot set input for a linguistic variable. Input out of range.";
 			this->input = NAN;
 		}
 	}
@@ -43,10 +43,10 @@ float InputLinguisticVariable::getInput() const {
 bool InputLinguisticVariable::setInput(float input) {
 
 	if(isSetInput() && input!=this->input)
-		LOG4CPLUS_WARN(this->logger,this->getName() + ": The value of the input already exist");
+		LWARNING << this->getName() << ": The value of the input already exist";
 
 	if (input > this->max_range || input < this->min_range){
-		LOG4CPLUS_ERROR(this->logger, this->getName() + "Input cannot be set because it's out of range.");
+		LERROR << this->getName() << "Input cannot be set because it's out of range.";
 		return false;
 	}
 	else{

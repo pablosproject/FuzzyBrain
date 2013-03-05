@@ -48,8 +48,8 @@ bool FuzzyEngine::setinput(const std::string& object,
 		if (obj)
 			return obj->setInput(variable, value);
 		else {
-			LOG4CPLUS_ERROR(this->logger,
-					"Error, does not exist the object in the engine: " + object);
+			LERROR <<
+					"Error, does not exist the object in the engine: " << object;
 			return false;
 		}
 	}
