@@ -1,21 +1,19 @@
 /*
-    GetOpt_pp:  Yet another C++ version of getopt.
-    Copyright (C) 2007, 2008, 2009, 2010  Daniel Gutson, FuDePAN
-
+GetOpt_pp: Yet another C++ version of getopt.
     This file is part of GetOpt_pp.
-
-    GetOpt_pp is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    GetOpt_pp is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    
+    Copyright (C) Daniel Gutson, FuDePAN 2007-2010
+    Distributed under the Boost Software License, Version 1.0.
+    (See accompanying file LICENSE_1_0.txt in the root directory or 
+    copy at http://www.boost.org/LICENSE_1_0.txt)
+    
+    GetOpt_pp IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE, TITLE AND NON-INFRINGEMENT. IN NO EVENT
+    SHALL THE COPYRIGHT HOLDERS OR ANYONE DISTRIBUTING THE SOFTWARE BE LIABLE
+    FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
+    ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+    DEALINGS IN THE SOFTWARE.
 */
 
 #ifndef GETOPT_PP_H
@@ -123,10 +121,12 @@ struct _Option
 
     static const char NO_SHORT_OPT = 0;
 protected:
-    static void setTokenAsUsed(const Token* token, ShortOptions& short_ops)
+    static void setTokenAsUsed(Token* token, ShortOptions& short_ops, Token::Type usedAs)
     {
         if (token->type == Token::PossibleNegativeArgument)
             short_ops.erase(token->value[1]);
+
+        token->type = usedAs;
     }
 };
 
@@ -206,8 +206,7 @@ protected:
             return _Option::NoArgs;
         else
         {
-            this->setTokenAsUsed(option_token, short_ops);
-            option_token->type = Token::OptionArgument;
+            this->setTokenAsUsed(option_token, short_ops, Token::OptionArgument);
             return convert<T>(option_token->value, this->target, flags);
         }
     }
@@ -236,7 +235,7 @@ protected:
 
             do
             {
-                this->setTokenAsUsed(option_token, short_ops);
+                this->setTokenAsUsed(option_token, short_ops, Token::OptionArgument);
                 result = convert<T>(option_token->value, temp, flags);
                 if (result == _Option::OK)
                     this->target.push_back(temp);
@@ -307,8 +306,7 @@ class _GlobalOption : public _Option
         }
         if (found)
         {
-            this->setTokenAsUsed(token, short_ops);
-            token->type = Token::GlobalArgumentUsed;
+            this->setTokenAsUsed(token, short_ops, Token::GlobalArgumentUsed);
             return convert<T>(token->value, target, flags);
         }
         else
@@ -343,10 +341,9 @@ class _GlobalOption<std::vector<T> > : public _Option
                 res = convert<T>(token->value, tmp, flags);
                 if (res == OK)
                 {
-                    this->setTokenAsUsed(token, short_ops);
+                    this->setTokenAsUsed(token, short_ops, Token::GlobalArgumentUsed);
                     found_any = true;
                     target.push_back(tmp);
-                    token->type = Token::GlobalArgumentUsed;
                 }
             }
             token = token->next;
@@ -512,6 +509,12 @@ struct ArgumentNotFoundEx : GetOptEx {};
 struct TooManyArgumentsEx : GetOptEx {};
 struct OptionNotFoundEx : GetOptEx {};
 struct TooManyOptionsEx : GetOptEx {};
+struct OptionsFileNotFoundEx : GetOptEx
+{
+    const std::string targetFile;
+    OptionsFileNotFoundEx(const std::string& file) : targetFile(file) {}
+    ~OptionsFileNotFoundEx() throw() {}
+};
 
 enum _EnvTag
 {
@@ -529,14 +532,26 @@ class GetOpt_pp
     Token* _first_token;
     Token* _last_token;
 
+    class TokensDeleter
+    {
+        Token*& _first;
+    public:
+        TokensDeleter(Token*& first) : _first(first) {}
+
+        GETOPT_INLINE ~TokensDeleter();
+    };
+
+    TokensDeleter _tokens_deleter;
+
     GETOPT_INLINE Token* _add_token(const std::string& value, Token::Type type);
     GETOPT_INLINE void _init_flags();
-    GETOPT_INLINE void _parse(int argc, const char* const* const argv);
+    GETOPT_INLINE void _parse(const std::vector<std::string>& args);
     GETOPT_INLINE void _parse_env();
+    static GETOPT_INLINE void _argc_argv_to_vector(int argc, const char* const* const argv, std::vector<std::string>& args);
+    GETOPT_INLINE void _parse_sub_file(const std::string& file);
 public:
     GETOPT_INLINE GetOpt_pp(int argc, const char* const* const argv);
     GETOPT_INLINE GetOpt_pp(int argc, const char* const* const argv, _EnvTag);
-    GETOPT_INLINE ~GetOpt_pp();
 
     std::ios_base::iostate exceptions() const
     {

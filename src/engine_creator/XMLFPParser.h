@@ -10,6 +10,7 @@
 
 
 #include "../lib/pugixml.hpp"
+#include <cstring>
 #include <iostream>
 #include "../MamdaniFuzzyObject.h"
 #include "../Utility.h"

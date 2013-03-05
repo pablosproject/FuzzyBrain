@@ -7,7 +7,7 @@
 //============================================================================
 
 #include <iostream>
-#include "lib/getopt/getopt_pp.h"
+#include "lib/getopt_pp.h"
 #include "FuzzyEngine.h"
 #include "Configurator.h"
 

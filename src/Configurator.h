@@ -9,7 +9,7 @@
 #define CONFIGURATOR_H_
 #include <string>
 #include <iostream>
-#include "lib/getopt/getopt_pp.h"
+#include "lib/getopt_pp.h"
 #include "FuzzyEngine.h"
 #include "input_providers/ManualInputProvider.h"
 #include "engine_creator/XMLFPCreator.h"
