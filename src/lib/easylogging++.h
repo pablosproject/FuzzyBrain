@@ -213,7 +213,7 @@ namespace configuration {
 // Further reading on:
 // https://github.com/mkhan3189/EasyLoggingPP/blob/master/README.md#log-format
 
-const std::string    DEFAULT_LOG_FORMAT       =    "[%level] [%datetime] [%func] [%loc] %log\n";
+const std::string    DEFAULT_LOG_FORMAT       =    "[%level] [%datetime] [%func] [%loc]  %log\n";
 const std::string    DEBUG_LOG_FORMAT         =    "[%level] [%datetime] [%user@%host] [%func] [%loc] %log\n";
 const std::string    INFO_LOG_FORMAT          =    DEFAULT_LOG_FORMAT;
 const std::string    WARNING_LOG_FORMAT       =    DEFAULT_LOG_FORMAT;
@@ -263,7 +263,7 @@ const std::string    CUSTOM_LOG_FILE_LOCATION =    "logs/";
 //   If this is true, logs will be saved to location set in configuration above
 //   (CUSTOM_LOG_FILE_LOCATION). Default log location is application run path.
 //   Recommendation: As required
-const bool           USE_CUSTOM_LOCATION      =    true;
+const bool           USE_CUSTOM_LOCATION      =    false;
 
 // SHOW_START_FUNCTION_LOG
 //   When using performance logging, this determines whether or not to show
