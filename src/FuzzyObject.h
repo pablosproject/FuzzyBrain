@@ -15,7 +15,7 @@
 #ifndef FUZZYOBJECT_H_
 #define FUZZYOBJECT_H_
 
-#import <string>
+#include <string>
 
 class FuzzyObject {
 public:
