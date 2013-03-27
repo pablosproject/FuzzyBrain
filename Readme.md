@@ -84,14 +84,18 @@ Let's make an example using code: a fuzzy calculator.
       float output = calculator->getOutput();
 
 
-'''
+'
 
 
-This is a base case using only one FuzzyObject. If needed a FuzzyEngine can be used to collect several fuzzy object, manage relationship between objects and manage input and output. Also you can provide an EngineCreator that permit to import the engine from an XML or other sources.
+This is a base case using only one FuzzyObject. If needed a FuzzyEngine can be used to collect several fuzzy object, manage relationship between objects and manage input and output. Also you can provide an EngineCreator to import the engine from an XML or other sources.
 
 
 ##Documentation
 All the documentation for the source code can be found at http://fuzzybrain.pablosproject.com/.
+
+#TDD
+All the elements in the software are developed using the TDD approach. All the unit test written are stored under the */test* folder and are written and executed using GoogleTest (https://code.google.com/p/googletest/).
+For a guide to setup a TDD environment using Google Test and Eclipse you can watch http://www.pablosproject.com/c-2/test-driven-developement-c-with-eclipse.
 
 #Contact
 
