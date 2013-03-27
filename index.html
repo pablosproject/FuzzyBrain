@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -15,17 +16,18 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1>Fuzzybrain</h1>
-        <p>This is a fuzzy inference engine written in C++. It is a multi-stage inference engine based on fuzzy logic focused on speed and flexibility.</p>
-
-        <p class="view"><a href="https://github.com/pablosproject/FuzzyBrain">View the Project on GitHub <small>pablosproject/FuzzyBrain</small></a></p>
-
+        <h1 class="header">Fuzzybrain</h1>
+        <p class="header">This is a fuzzy inference engine written in C++. It is a multi-stage inference engine based on fuzzy logic focused on speed and flexibility.</p>
 
         <ul>
-          <li><a href="https://github.com/pablosproject/FuzzyBrain/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/pablosproject/FuzzyBrain/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/pablosproject/FuzzyBrain">View On <strong>GitHub</strong></a></li>
+          <li class="download"><a class="buttons" href="https://github.com/pablosproject/FuzzyBrain/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/pablosproject/FuzzyBrain/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/pablosproject/FuzzyBrain">View On GitHub</a></li>
         </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/pablosproject">pablosproject</a></p>
+
+
       </header>
       <section>
         <h1>FuzzyBrain</h1>
@@ -135,24 +137,28 @@
   float output = calculator-&gt;getOutput();
 </code></pre>
 
-<p>'''</p>
+<p>'</p>
 
-<p>This is a base case using only one FuzzyObject. If needed a FuzzyEngine can be used to collect several fuzzy object, manage relationship between objects and manage input and output. Also you can provide an EngineCreator that permit to import the engine from an XML or other sources.</p>
+<p>This is a base case using only one FuzzyObject. If needed a FuzzyEngine can be used to collect several fuzzy object, manage relationship between objects and manage input and output. Also you can provide an EngineCreator to import the engine from an XML or other sources.</p>
 
 <h2>Documentation</h2>
 
 <p>All the documentation for the source code can be found at <a href="http://fuzzybrain.pablosproject.com/">http://fuzzybrain.pablosproject.com/</a>.</p>
+
+<h1>TDD</h1>
+
+<p>All the elements in the software are developed using the TDD approach. All the unit test written are stored under the <em>/test</em> folder and are written and executed using GoogleTest (<a href="https://code.google.com/p/googletest/">https://code.google.com/p/googletest/</a>).
+For a guide to setup a TDD environment using Google Test and Eclipse you can watch <a href="http://www.pablosproject.com/c-2/test-driven-developement-c-with-eclipse">http://www.pablosproject.com/c-2/test-driven-developement-c-with-eclipse</a>.</p>
 
 <h1>Contact</h1>
 
 <p>You can contact me for every question at <a href="mailto:pablosproject@gmail.com">pablosproject@gmail.com</a> or twitter <a href="https://github.com/PablosProject" class="user-mention">@PablosProject</a>.</p>
       </section>
       <footer>
-        <p>This project is maintained by <a href="https://github.com/pablosproject">pablosproject</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
       </footer>
     </div>
-    <script src="javascripts/scale.fix.js"></script>
-    
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
   </body>
 </html>
