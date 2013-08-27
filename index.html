@@ -1,52 +1,62 @@
 <!doctype html>
+<!-- The Time Machine GitHub pages theme was designed and developed by Jon Rohan, on Feb 7, 2012. -->
+<!-- Follow him for fun. http://twitter.com/jonrohan. Tail his code on http://github.com/jonrohan -->
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Fuzzybrain by pablosproject</title>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="javascripts/scale.fix.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <h1 class="header">Fuzzybrain</h1>
-        <p class="header">This is a fuzzy inference engine written in C++. It is a multi-stage inference engine based on fuzzy logic focused on speed and flexibility.</p>
+  <link rel="stylesheet" href="stylesheets/stylesheet.css" media="screen"/>
+  <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script type="text/javascript" src="javascripts/script.js"></script>
 
-        <ul>
-          <li class="download"><a class="buttons" href="https://github.com/pablosproject/FuzzyBrain/zipball/master">Download ZIP</a></li>
-          <li class="download"><a class="buttons" href="https://github.com/pablosproject/FuzzyBrain/tarball/master">Download TAR</a></li>
-          <li><a class="buttons github" href="https://github.com/pablosproject/FuzzyBrain">View On GitHub</a></li>
-        </ul>
+  <title>Fuzzybrain</title>
+  <meta name="description" content="This is a fuzzy inference engine written in C++. It is a multi-stage inference engine based on fuzzy logic focused on speed and flexibility.">
 
-        <p class="header">This project is maintained by <a class="header name" href="https://github.com/pablosproject">pablosproject</a></p>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
 
+</head>
 
-      </header>
-      <section>
-        <h1>FuzzyBrain</h1>
+<body>
 
-<h2>Introduction</h2>
+  <div class="wrapper">
+    <header>
+      <h1 class="title">Fuzzybrain</h1>
+    </header>
+    <div id="container">
+      <p class="tagline">This is a fuzzy inference engine written in C++. It is a multi-stage inference engine based on fuzzy logic focused on speed and flexibility.</p>
+      <div id="main" role="main">
+        <div class="download-bar">
+        <div class="inner">
+          <a href="https://github.com/pablosproject/FuzzyBrain/tarball/master" class="download-button tar"><span>Download</span></a>
+          <a href="https://github.com/pablosproject/FuzzyBrain/zipball/master" class="download-button zip"><span>Download</span></a>
+          <a href="https://github.com/pablosproject/FuzzyBrain" class="code">View Fuzzybrain on GitHub</a>
+        </div>
+        <span class="blc"></span><span class="trc"></span>
+        </div>
+        <article class="markdown-body">
+          <h1>
+<a name="fuzzybrain" class="anchor" href="#fuzzybrain"><span class="octicon octicon-link"></span></a>FuzzyBrain</h1>
+
+<h2>
+<a name="introduction" class="anchor" href="#introduction"><span class="octicon octicon-link"></span></a>Introduction</h2>
 
 <p>FuzzyBrain is a fuzzy logic inference engine completely written in C++. It is designed to be simple to use,extend and to be fast! You can take the code in the <em>/src</em> directory ad add to your project.</p>
 
 <p>Every single variable and fuzzy set in the system can be configured manually, and you can fire the inference as many time you want.</p>
 
-<h2>Usage</h2>
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
 
 <p>Conceptually there are several elements that play different roles in the fuzzy inference system.</p>
 
 <table>
-<tr>
+<thead><tr>
 <th>Component</th>
 <th>Role</th>
-</tr>
+</tr></thead>
+<tbody>
 <tr>
 <td>FuzzySet</td>
 <td>Represent a single fuzzy set in a linguistic variable</td>
@@ -71,6 +81,7 @@
 <td>FuzzyEngine</td>
 <td>Container of several FuzzyObject</td>
 </tr>
+</tbody>
 </table><p>Let's make an example using code: a fuzzy calculator.
 '''C++
      //First: creation of the fuzzy object
@@ -141,24 +152,41 @@
 
 <p>This is a base case using only one FuzzyObject. If needed a FuzzyEngine can be used to collect several fuzzy object, manage relationship between objects and manage input and output. Also you can provide an EngineCreator to import the engine from an XML or other sources.</p>
 
-<h2>Documentation</h2>
+<h2>
+<a name="documentation" class="anchor" href="#documentation"><span class="octicon octicon-link"></span></a>Documentation</h2>
 
 <p>All the documentation for the source code can be found at <a href="http://fuzzybrain.pablosproject.com/">http://fuzzybrain.pablosproject.com/</a>.</p>
 
-<h1>TDD</h1>
+<h1>
+<a name="tdd" class="anchor" href="#tdd"><span class="octicon octicon-link"></span></a>TDD</h1>
 
 <p>All the elements in the software are developed using the TDD approach. All the unit test written are stored under the <em>/test</em> folder and are written and executed using GoogleTest (<a href="https://code.google.com/p/googletest/">https://code.google.com/p/googletest/</a>).
 For a guide to setup a TDD environment using Google Test and Eclipse you can watch <a href="http://www.pablosproject.com/c-2/test-driven-developement-c-with-eclipse">http://www.pablosproject.com/c-2/test-driven-developement-c-with-eclipse</a>.</p>
 
-<h1>Contact</h1>
+<h1>
+<a name="contact" class="anchor" href="#contact"><span class="octicon octicon-link"></span></a>Contact</h1>
 
 <p>You can contact me for every question at <a href="mailto:pablosproject@gmail.com">pablosproject@gmail.com</a> or twitter <a href="https://github.com/PablosProject" class="user-mention">@PablosProject</a>.</p>
-      </section>
-      <footer>
-        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
-      </footer>
+        </article>
+      </div>
     </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-		
-  </body>
+    <footer>
+      <div class="owner">
+      <p><a href="https://github.com/pablosproject" class="avatar"><img src="https://2.gravatar.com/avatar/b0770344b1f3dce99ced48a8f8462684?d=https%3A%2F%2Fidenticons.github.com%2F4db1cc0579d75420fe74bd024e1c5a2d.png&amp;s=30" width="48" height="48"/></a> <a href="https://github.com/pablosproject">pablosproject</a> maintains <a href="https://github.com/pablosproject/FuzzyBrain">Fuzzybrain</a></p>
+
+
+      </div>
+      <div class="creds">
+        <small>This page generated using <a href="https://pages.github.com/">GitHub Pages</a><br/>theme by <a href="https://twitter.com/jonrohan/">Jon Rohan</a></small>
+      </div>
+    </footer>
+  </div>
+  <div class="current-section">
+    <a href="#top">Scroll to top</a>
+    <a href="https://github.com/pablosproject/FuzzyBrain/tarball/master" class="tar">tar</a><a href="https://github.com/pablosproject/FuzzyBrain/zipball/master" class="zip">zip</a><a href="" class="code">source code</a>
+    <p class="name"></p>
+  </div>
+
+  
+</body>
 </html>
