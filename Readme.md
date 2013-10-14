@@ -1,3 +1,4 @@
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/pablosproject/fuzzybrain/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 FuzzyBrain
 ============
 Introduction
